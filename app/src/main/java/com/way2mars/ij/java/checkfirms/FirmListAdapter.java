@@ -1,12 +1,10 @@
 package com.way2mars.ij.java.checkfirms;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,9 +34,9 @@ public class FirmListAdapter extends ArrayAdapter<FirmData> {
             ((TextView) listItemView.findViewById(R.id.fld_item_last_date)).setText(currentFirm.getDateLastChange());
             ((TextView) listItemView.findViewById(R.id.fld_item_last_text)).setText(currentFirm.getTextLastChange());
             ((TextView) listItemView.findViewById(R.id.fld_item_liquidation_date)).
-                    setText(currentFirm.getDateOfLiquidaton());
+                    setText(currentFirm.getDateLiquidaton());
             ((TextView) listItemView.findViewById(R.id.fld_item_liquidation_text)).
-                    setText(currentFirm.getReasonOfLiquidaton());
+                    setText(currentFirm.getReasonLiquidaton());
             imageButton = listItemView.findViewById(R.id.fld_item_button);
         } else {
             listItemView = LayoutInflater.from(getContext()).inflate(

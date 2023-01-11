@@ -1,44 +1,44 @@
 package com.way2mars.ij.java.checkfirms;
 
+import android.os.Build;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import org.jetbrains.annotations.NotNull;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+// LocalDate is only able since Android 8.0 "Oreo"
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class FirmData {
-    private String mShortName;
-    private String mInn;
-    private String mDateLastChange;
-    private String mTextLastChange;
-    private Boolean isLuqiudated;
-    private String mDateOfLiquidaton;
-    private String mReasonOfLiquidaton;
+    private final String mShortName;
+    private final String mInn;
+    private final String mTextLastChange;
+    @Nullable private final LocalDate mDateLastChange;
+    private final Boolean isLuqiudated;
+    @Nullable private final LocalDate mDateLiquidation;
+    private final String mReasonLiquidaton;
 
-    public FirmData() {
-        mShortName = "";
-        mInn = "";
-        mDateLastChange = "";
-        mTextLastChange = "";
-        isLuqiudated = false;
-        mDateOfLiquidaton = "";
-        mReasonOfLiquidaton = "";
-    }
-
+    // The constructor for "alive" firm
     public FirmData(String name, String inn, String date, String text) {
         mShortName = name;
         mInn = inn;
-        mDateLastChange = date;
         mTextLastChange = text;
+        mDateLastChange = string2date(date);
         isLuqiudated = false;
-        mDateOfLiquidaton = "";
-        mReasonOfLiquidaton = "";
+        mDateLiquidation = null;
+        mReasonLiquidaton = "";
     }
 
+    // The constructor for liquidated firm
     public FirmData(String name, String inn, String date, String text, String dateLiq, String textLiq) {
         mShortName = name;
         mInn = inn;
-        mDateLastChange = date;
         mTextLastChange = text;
+        mDateLastChange = string2date(date);
         isLuqiudated = true;
-        mDateOfLiquidaton = dateLiq;
-        mReasonOfLiquidaton = textLiq;
+        mDateLiquidation = string2date(dateLiq);
+        mReasonLiquidaton = textLiq;
     }
 
     public String getShortName() {
@@ -50,7 +50,7 @@ public class FirmData {
     }
 
     public String getDateLastChange() {
-        return mDateLastChange;
+        return date2string(mDateLastChange);
     }
 
     public String getTextLastChange() {
@@ -61,22 +61,40 @@ public class FirmData {
         return isLuqiudated;
     }
 
-    public String getDateOfLiquidaton() {
-        return mDateOfLiquidaton;
+    public String getDateLiquidaton() {
+        return date2string(mDateLiquidation);
     }
 
-    public String getReasonOfLiquidaton() {
-        return mReasonOfLiquidaton;
+    public String getReasonLiquidaton() {
+        return mReasonLiquidaton;
     }
 
     @NotNull
     public String toString() {
         return "Имя: " + mShortName + "\n" +
                 "ИНН: " + mInn + "\n" +
-                "ДатаПослИзм: " + mDateLastChange + "\n" +
+                "ДатаПослИзм: " + date2string(mDateLastChange) + "\n" +
                 "ТекстПослИзм: " + mTextLastChange + "\n" +
                 "Ликв?: " + isLuqiudated.toString() + "\n" +
-                "ДатаЛикв: " + mDateOfLiquidaton + "\n" +
-                "ПричЛикв: " + mReasonOfLiquidaton;
+                "ДатаЛикв: " + date2string(mDateLiquidation) + "\n" +
+                "ПричЛикв: " + mReasonLiquidaton;
+    }
+
+    @Nullable
+    private LocalDate string2date(String stringDate){
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        try {
+            return LocalDate.parse(stringDate, fmt);
+        }catch (Exception RuntimeException){
+            return null;
+        }
+    }
+
+    @NotNull
+    public String date2string(@Nullable LocalDate date){
+        if(date == null) return "нет данных";
+
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        return date.format(fmt);
     }
 }
