@@ -57,4 +57,23 @@ public class FirmListAdapter extends ArrayAdapter<FirmData> {
         });
         return listItemView;
     }
+
+
+    @Override
+    public void notifyDataSetChanged() {
+        this.setNotifyOnChange(false);
+
+//        this.sort(new Comparator<FirmData>() {
+//            @Override
+//            public int compare(FirmData firmData1, FirmData firmData2) {
+//                return firmData1.compareTo(firmData2);
+//            }
+//        });
+
+        this.sort(new FirmDataComparator());
+
+        this.setNotifyOnChange(true);
+
+        super.notifyDataSetChanged();
+    }
 }

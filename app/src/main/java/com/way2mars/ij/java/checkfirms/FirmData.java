@@ -7,10 +7,11 @@ import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 
-// LocalDate is only able since Android 8.0 "Oreo"
-@RequiresApi(api = Build.VERSION_CODES.O)
-public class FirmData {
+
+@RequiresApi(api = Build.VERSION_CODES.O) // LocalDate is only able since Android 8.0 "Oreo"
+public class FirmData implements Comparable<FirmData>{
     private final String mShortName;
     private final String mInn;
     private final String mTextLastChange;
@@ -97,4 +98,20 @@ public class FirmData {
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         return date.format(fmt);
     }
+
+    @Override
+    public int compareTo(FirmData right) {
+        // Дата по убыванию
+        int result = - this.mDateLastChange.compareTo(right.mDateLastChange);
+
+        // Название по алфавиту
+        if( result == 0)
+        {
+            result = this.mShortName.compareTo(right.mShortName);
+        }
+        return result;
+    }
 }
+
+
+

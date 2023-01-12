@@ -11,9 +11,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.Toast;
+import com.github.javafaker.Faker;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     Toast mainToast=null;
     ArrayList<FirmData> mainArray=null;
     FirmListAdapter mainAdapter=null;
+    Faker faker = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         final FirmListAdapter adapter = new FirmListAdapter(this, firms);
         this.mainArray = firms;
         this.mainAdapter = adapter;
+        this.faker = new Faker(new Locale("ru-RU"));
 
         listView.setAdapter(adapter);
 
@@ -73,7 +81,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addItem(){
-        this.mainArray.add(0, new FirmData("new name", "new inn", "2024-12-12", "new text"));
+        String name = "ООО " + this.faker.funnyName().name();
+        this.mainArray.add(0, new FirmData(name, "new inn", "2022-09-15" , "new text"));
         this.mainAdapter.notifyDataSetChanged();
     }
 
