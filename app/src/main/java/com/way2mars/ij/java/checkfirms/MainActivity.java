@@ -1,6 +1,7 @@
 package com.way2mars.ij.java.checkfirms;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.widget.AbsListView;
@@ -12,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 import com.github.javafaker.Faker;
+import com.mifmif.common.regex.Main;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -81,9 +83,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addItem(){
-        String name = "ООО " + this.faker.funnyName().name();
-        this.mainArray.add(0, new FirmData(name, "new inn", "2022-09-15" , "new text"));
-        this.mainAdapter.notifyDataSetChanged();
+//        String name = "ООО " + this.faker.funnyName().name();
+//        this.mainArray.add(0, new FirmData(name, "new inn", "2022-09-15" , "new text"));
+//        this.mainAdapter.notifyDataSetChanged();
+
+        Intent intent = new Intent(MainActivity.this, AddFirmActivity.class);
+        startActivity(intent);
     }
 
 }
