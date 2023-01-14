@@ -4,7 +4,8 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:orientation="vertical">
+  android:orientation="vertical"
+  android:scrollbarSize="4dp">
 
   <androidx.cardview.widget.CardView
     android:layout_width="match_parent"
@@ -13,183 +14,346 @@
     app:cardCornerRadius="20dp">
 
     <androidx.appcompat.widget.LinearLayoutCompat
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:paddingHorizontal="20dp"
+      android:paddingVertical="30dp">
+
+      <EditText
+        android:id="@+id/anf_edittext_inn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="20dp"
-        android:paddingVertical="40dp"
-        android:orientation="horizontal">
-      <EditText
-          android:id="@+id/editTextNumberInn"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_weight="1"
-          android:layout_marginRight="10dp"
-          android:inputType="numberDecimal"
-          android:hint="ИНН"/>
+        android:layout_marginEnd="10dp"
+        android:layout_weight="1"
+        android:autofillHints="2466000000"
+        android:hint="ИНН"
+        android:inputType="number"
+        android:minHeight="48dp" />
+
       <Button
-          android:id="@+id/button"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_weight="2"
-          android:layout_marginLeft="10dp"
-          android:text="Search"/>
+        android:id="@+id/anf_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_weight="2"
+        android:text="Search"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
   </androidx.cardview.widget.CardView>
 
   <androidx.cardview.widget.CardView
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_marginBottom="20dp"
-      android:layout_marginHorizontal="20dp"
-      app:cardCornerRadius="20dp">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="20dp"
+    android:layout_marginBottom="20dp"
+    android:layout_weight="1"
+    app:cardCornerRadius="20dp"
+    tools:ignore="InefficientWeight">
+
     <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:orientation="vertical"
+
       android:layout_margin="20dp">
 
-      <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:orientation="horizontal">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLines="2"
-            android:ellipsize="end"
-            android:layout_weight="2"
-            android:layout_marginBottom="10dp"
-            android:layout_marginRight="10dp"
-            android:text="Short Name"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:maxLines="2"
-            android:ellipsize="end"
-            android:layout_marginBottom="10dp"
-            tools:text="Such a beautiful name"/>
-      </LinearLayout>
+      <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-      <LinearLayout
+        <LinearLayout
           android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:orientation="horizontal">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:maxLines="2"
-            android:ellipsize="end"
-            android:layout_marginBottom="10dp"
-            android:layout_marginRight="10dp"
-            android:text="Long Name"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:maxLines="2"
-            android:ellipsize="end"
-            android:layout_marginBottom="10dp"
-            tools:text="This name is as long as the longest name in the whole World that the mankind has ever seen in its History"/>
-      </LinearLayout>
+          android:layout_height="match_parent"
+          android:orientation="vertical"
+          tools:ignore="ScrollViewSize">
 
-      <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:orientation="horizontal">
-        <TextView
+          <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="2"
-            android:ellipsize="end"
-            android:layout_weight="2"
-            android:layout_marginBottom="10dp"
-            android:layout_marginRight="10dp"
-            android:text="Person Name"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:maxLines="2"
-            android:ellipsize="end"
-            android:layout_marginBottom="10dp"
-            tools:text="James Brown Jr"/>
-      </LinearLayout>
+            android:orientation="horizontal">
 
-      <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:orientation="horizontal">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLines="2"
-            android:ellipsize="end"
-            android:layout_weight="2"
-            android:layout_marginBottom="10dp"
-            android:layout_marginRight="10dp"
-            android:text="Given number"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:maxLines="2"
-            android:ellipsize="end"
-            android:layout_marginBottom="10dp"
-            tools:text="3.1415926535"/>
-      </LinearLayout>
+            <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginEnd="10dp"
+              android:layout_marginBottom="10dp"
+              android:layout_weight="2"
+              android:ellipsize="end"
+              android:maxLines="2"
+              android:text="Short Name" />
 
-      <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:orientation="horizontal">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLines="2"
-            android:ellipsize="end"
-            android:layout_weight="2"
-            android:layout_marginBottom="10dp"
-            android:layout_marginRight="10dp"
-            android:text="Given number #2"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:maxLines="2"
-            android:ellipsize="end"
-            android:layout_marginBottom="10dp"
-            tools:text="6.62607015"/>
-      </LinearLayout>
+            <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginBottom="10dp"
+              android:layout_weight="1"
+              android:ellipsize="end"
+              android:maxLines="2"
+              tools:text="Such a beautiful name" />
+          </LinearLayout>
 
-      <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:orientation="horizontal">
-        <TextView
+          <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="2"
-            android:ellipsize="end"
-            android:layout_weight="2"
-            android:layout_marginBottom="10dp"
-            android:layout_marginRight="10dp"
-            android:text="Given name"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:maxLines="2"
-            android:ellipsize="end"
-            android:layout_marginBottom="10dp"
-            tools:text="explanation text message
-"/>
-      </LinearLayout>
+            android:orientation="horizontal">
 
+            <TextView
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_marginEnd="10dp"
+              android:layout_marginBottom="10dp"
+              android:layout_weight="2"
+              android:ellipsize="end"
+              android:maxLines="2"
+              android:text="Long Name" />
+
+            <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginBottom="10dp"
+              android:layout_weight="1"
+              android:ellipsize="end"
+              android:maxLines="2"
+              tools:text="This name is as long as the longest name in the whole World that the mankind has ever seen in its History" />
+          </LinearLayout>
+
+          <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginEnd="10dp"
+              android:layout_marginBottom="10dp"
+              android:layout_weight="2"
+              android:ellipsize="end"
+              android:maxLines="2"
+              android:text="Person Name" />
+
+            <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginBottom="10dp"
+              android:layout_weight="1"
+              android:ellipsize="end"
+              android:maxLines="2"
+              tools:text="James Brown Jr" />
+          </LinearLayout>
+
+          <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginEnd="10dp"
+              android:layout_marginBottom="10dp"
+              android:layout_weight="2"
+              android:ellipsize="end"
+              android:maxLines="2"
+              android:text="Given number" />
+
+            <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginBottom="10dp"
+              android:layout_weight="1"
+              android:ellipsize="end"
+              android:maxLines="2"
+              tools:text="3.1415926535" />
+          </LinearLayout>
+
+          <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginEnd="10dp"
+              android:layout_marginBottom="10dp"
+              android:layout_weight="2"
+              android:ellipsize="end"
+              android:maxLines="2"
+              android:text="Given number #2" />
+
+            <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginBottom="10dp"
+              android:layout_weight="1"
+              android:ellipsize="end"
+              android:maxLines="2"
+              tools:text="6.62607015" />
+          </LinearLayout>
+
+          <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginEnd="10dp"
+              android:layout_marginBottom="10dp"
+              android:layout_weight="2"
+              android:ellipsize="end"
+              android:maxLines="2"
+              android:text="Given name" />
+
+            <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginBottom="10dp"
+              android:layout_weight="1"
+              android:ellipsize="end"
+              android:maxLines="2"
+              tools:text="explanation text message" />
+          </LinearLayout>
+
+          <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginEnd="10dp"
+              android:layout_marginBottom="10dp"
+              android:layout_weight="2"
+              android:ellipsize="end"
+              android:maxLines="2"
+              android:text="Meaningless" />
+
+            <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginBottom="10dp"
+              android:layout_weight="1"
+              android:ellipsize="end"
+              android:maxLines="4"
+              android:text="explanation text message. Just to fill the space.\n101\n404" />
+          </LinearLayout>
+
+          <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginEnd="10dp"
+              android:layout_marginBottom="10dp"
+              android:layout_weight="2"
+              android:ellipsize="end"
+              android:maxLines="2"
+              android:text="Meaningless" />
+
+            <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginBottom="10dp"
+              android:layout_weight="1"
+              android:ellipsize="end"
+              android:maxLines="4"
+              android:text="explanation text message. Just to fill the space.\n101\n404" />
+          </LinearLayout>
+
+          <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginEnd="10dp"
+              android:layout_marginBottom="10dp"
+              android:layout_weight="2"
+              android:ellipsize="end"
+              android:maxLines="2"
+              android:text="Meaningless" />
+
+            <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginBottom="10dp"
+              android:layout_weight="1"
+              android:ellipsize="end"
+              android:maxLines="4"
+              android:text="explanation text message. Just to fill the space.\n101\n404" />
+          </LinearLayout>
+
+          <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginEnd="10dp"
+              android:layout_marginBottom="10dp"
+              android:layout_weight="2"
+              android:ellipsize="end"
+              android:maxLines="2"
+              android:text="Meaningless" />
+
+            <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginBottom="10dp"
+              android:layout_weight="1"
+              android:ellipsize="end"
+              android:maxLines="4"
+              android:text="explanation text message. Just to fill the space.\n101\n404" />
+          </LinearLayout>
+
+          <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginEnd="10dp"
+              android:layout_marginBottom="10dp"
+              android:layout_weight="2"
+              android:ellipsize="end"
+              android:maxLines="2"
+              android:text="Meaningless" />
+
+            <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginBottom="10dp"
+              android:layout_weight="1"
+              android:ellipsize="end"
+              android:maxLines="4"
+              android:text="explanation text message. Just to fill the space.\n101\n404" />
+          </LinearLayout>
+
+
+        </LinearLayout>
+      </ScrollView>
     </LinearLayout>
   </androidx.cardview.widget.CardView>
+
+  <Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginBottom="20dp"
+    android:text="Apply" />
 
 
 </LinearLayout>
