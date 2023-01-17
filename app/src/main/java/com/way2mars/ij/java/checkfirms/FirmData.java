@@ -13,6 +13,23 @@ import java.util.Map;
 
 @RequiresApi(api = Build.VERSION_CODES.O) // LocalDate is only able since Android 8.0 "Oreo"
 public class FirmData implements Comparable<FirmData>{
+    public final int SHORT_NAME=1;
+    public final int LONG_NAME=2;
+    public final int INN=3;
+    public final int KPP=4;
+    public final int OGRN=5;
+    public final int DATE_OGRN=6;
+    public final int ADDRESS=7;
+
+    public final int BOOL_LIQUIDATION=21;
+    public final int BOOL_ADDRESS=22;
+
+    public final int TEXT_LAST_CHANGE=101;
+    public final int DATE_LAST_CHANGE=102;
+    public final int REASON_LIQUIDATION=103;
+    public final int DATE_LIQUIDATION=104;
+
+
     private String mShortName;
     private String mInn;
     private String mTextLastChange;
@@ -21,7 +38,7 @@ public class FirmData implements Comparable<FirmData>{
     private Boolean isNedostovAddress;
     @Nullable private LocalDate mDateLiquidation;
     private String mReasonLiquidaton;
-    private Map<String, String> mapValues;
+    private Map<Integer, String> mapValues;
 
     // The null-constructor for a firm
     public FirmData() {
@@ -87,7 +104,7 @@ public class FirmData implements Comparable<FirmData>{
         return (mReasonLiquidaton == null) ? "нет данных" : mReasonLiquidaton;
     }
 
-    public String getKeyValue(String keyName){ return mapValues.getOrDefault(keyName, "Пустая строка {HashMap}"); }
+    public String getKeyValue(Integer keyName){ return mapValues.getOrDefault(keyName, "Пустая строка {HashMap}"); }
 
     public void setShortName(String name){ mShortName = name;}
 
@@ -103,7 +120,7 @@ public class FirmData implements Comparable<FirmData>{
 
     public void setReasonLiquidaton(String text){ mReasonLiquidaton = text; }
 
-    public void setKeyValue(String keyName, String value){ if(keyName != null && value != null) if(keyName.length()>0 && value.length()>0) mapValues.put(keyName, value); }
+    public void setKeyValue(Integer keyName, String value){ if(keyName != null && value != null) if(value.length()>0) mapValues.put(keyName, value); }
 
     @NotNull
     public String toString() {

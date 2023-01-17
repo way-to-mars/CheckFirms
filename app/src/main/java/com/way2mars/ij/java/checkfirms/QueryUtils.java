@@ -1,6 +1,8 @@
 package com.way2mars.ij.java.checkfirms;
 
 import android.util.Log;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -128,10 +130,11 @@ public final class QueryUtils {
         return jsonResponse;
     }
 
-
+    @Nullable
     public static FirmData fetchFirmData(String requestUrl) {
         // Create URL object
         URL url = createUrl(requestUrl);
+        if(url == null) return null;
 
         // Perform HTTP request to the URL and receive a JSON response back
         String jsonResponse = null;
@@ -142,11 +145,11 @@ public final class QueryUtils {
         }
 
         FirmData firm = work_with_json(jsonResponse);
-        Log.d(LOG_TAG,firm.toString());
+        if(firm!=null) Log.d(LOG_TAG,firm.toString());
         return firm;
     }
 
-    private static String getAttribute(JSONObject json, String nameAttr, String defaultString){
+    private static String getAttribute(@NonNull JSONObject json, String nameAttr, String defaultString){
         try {
             if(json.has("@attributes")){
                 JSONObject obj1 = json.getJSONObject("@attributes");
@@ -162,10 +165,11 @@ public final class QueryUtils {
     }
 
 
-    public static FirmData work_with_json(String input_string){
-        FirmData firmData = new FirmData();
+    public static FirmData work_with_json(@Nullable String input_string){
+        if(input_string == null) return null;
+        if(input_string.length()==0) return null;
 
-        // TODO check if json contains error 404
+        FirmData firmData = new FirmData();
 
         // Если есть ключ с таким именем, значит фирма ликвидирована
         firmData.setLiquidationStatus( input_string.contains("СвПрекрЮЛ") );
@@ -175,6 +179,10 @@ public final class QueryUtils {
 
         try {
             JSONObject baseJsonResponse = new JSONObject(input_string);
+
+            // if "error" exists than return null
+            if(baseJsonResponse.has("error")) return null;
+
             // Если вдруг нет такого раздела, возвращаем неполные данные
             if(!baseJsonResponse.has("СвЮЛ"))
             {
@@ -222,14 +230,11 @@ public final class QueryUtils {
                 JSONObject jsonSvNaimUL = jsonSvUL.getJSONObject("СвНаимЮЛ");
                 if(jsonSvNaimUL.has("СвНаимЮЛСокр")) {
                     JSONObject jsonSvNaimULSokr = jsonSvNaimUL.getJSONObject("СвНаимЮЛСокр");
-//                    JSONObject obj2 = jsonSvNaimULSokr.getJSONObject("@attributes");
-//                    result = obj2.getString("НаимСокр");
-                    result = getAttribute(jsonSvNaimULSokr, "НаимСокр", "Нет сокращённого наименования");
+                    result = getAttribute(jsonSvNaimULSokr, "НаимСокр",
+                            "Нет сокращённого наименования");
                 }
-//
-//                JSONObject obj1 = jsonSvUL.getJSONObject("@attributes");
-//                result = obj1.getString("НаимЮЛПолн");  // Полное наименование
-                firmData.setKeyValue("longName", getAttribute(jsonSvNaimUL,"НаимЮЛПолн", result));
+                firmData.setKeyValue("longName",
+                        getAttribute(jsonSvNaimUL,"НаимЮЛПолн", result));
             }
         }
         catch (JSONException e) {

@@ -3,4 +3,6 @@
   <string name="title_last_change">Последнее изменение:</string>
   <string name="title_liquidated">Ликвидировано:</string>
   <string name="an_image_button">an image button</string>
+    <string name="anf_search_button">Поиск</string>
+  <string name="anf_inn_hint">укажите ИНН</string>
 </resources>
