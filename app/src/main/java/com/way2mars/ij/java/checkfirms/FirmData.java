@@ -7,18 +7,33 @@ import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @RequiresApi(api = Build.VERSION_CODES.O) // LocalDate is only able since Android 8.0 "Oreo"
 public class FirmData implements Comparable<FirmData>{
-    private final String mShortName;
-    private final String mInn;
-    private final String mTextLastChange;
-    @Nullable private final LocalDate mDateLastChange;
-    private final Boolean isLuqiudated;
-    @Nullable private final LocalDate mDateLiquidation;
-    private final String mReasonLiquidaton;
+    private String mShortName;
+    private String mInn;
+    private String mTextLastChange;
+    @Nullable private LocalDate mDateLastChange;
+    private Boolean isLuqiudated;
+    private Boolean isNedostovAddress;
+    @Nullable private LocalDate mDateLiquidation;
+    private String mReasonLiquidaton;
+    private Map<String, String> mapValues;
+
+    // The null-constructor for a firm
+    public FirmData() {
+        mShortName = null;
+        mInn = null;
+        mTextLastChange = null;
+        mDateLastChange = null;
+        isLuqiudated = false;
+        mDateLiquidation = null;
+        mReasonLiquidaton = null;
+        mapValues = new HashMap<>();
+    }
 
     // The constructor for "alive" firm
     public FirmData(String name, String inn, String date, String text) {
@@ -29,6 +44,7 @@ public class FirmData implements Comparable<FirmData>{
         isLuqiudated = false;
         mDateLiquidation = null;
         mReasonLiquidaton = "";
+        mapValues = new HashMap<>();
     }
 
     // The constructor for liquidated firm
@@ -40,14 +56,15 @@ public class FirmData implements Comparable<FirmData>{
         isLuqiudated = true;
         mDateLiquidation = string2date(dateLiq);
         mReasonLiquidaton = textLiq;
+        mapValues = new HashMap<>();
     }
 
     public String getShortName() {
-        return mShortName;
+        return (mShortName == null) ? "нет данных" : mShortName;
     }
 
     public String getInn() {
-        return mInn;
+        return (mInn == null) ? "нет данных" : mInn;
     }
 
     public String getDateLastChange() {
@@ -55,7 +72,7 @@ public class FirmData implements Comparable<FirmData>{
     }
 
     public String getTextLastChange() {
-        return mTextLastChange;
+        return (mTextLastChange == null) ? "нет данных" : mTextLastChange;
     }
 
     public Boolean isLuqiudated() {
@@ -67,8 +84,26 @@ public class FirmData implements Comparable<FirmData>{
     }
 
     public String getReasonLiquidaton() {
-        return mReasonLiquidaton;
+        return (mReasonLiquidaton == null) ? "нет данных" : mReasonLiquidaton;
     }
+
+    public String getKeyValue(String keyName){ return mapValues.getOrDefault(keyName, "Пустая строка {HashMap}"); }
+
+    public void setShortName(String name){ mShortName = name;}
+
+    public void setInn(String inn){ mInn = inn; }
+
+    public void setTextLastChange(String text){ mTextLastChange = text; }
+
+    public void setDateLastChange(String textDate){ mDateLastChange = string2date(textDate); }
+
+    public void setLiquidationStatus(Boolean flag){ isLuqiudated=flag;}
+
+    public void setDateLiquidation(String textDate){ mDateLiquidation = string2date(textDate); }
+
+    public void setReasonLiquidaton(String text){ mReasonLiquidaton = text; }
+
+    public void setKeyValue(String keyName, String value){ if(keyName != null && value != null) if(keyName.length()>0 && value.length()>0) mapValues.put(keyName, value); }
 
     @NotNull
     public String toString() {
@@ -101,7 +136,9 @@ public class FirmData implements Comparable<FirmData>{
 
     @Override
     public int compareTo(FirmData right) {
+        // TODO: maybe null
         // Дата по убыванию
+        assert this.mDateLastChange != null;
         int result = - this.mDateLastChange.compareTo(right.mDateLastChange);
 
         // Название по алфавиту

@@ -32,7 +32,7 @@
         android:minHeight="48dp" />
 
       <Button
-        android:id="@+id/anf_button"
+        android:id="@+id/anf_search_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -83,6 +83,7 @@
               android:text="Short Name" />
 
             <TextView
+              android:id="@+id/anf_shortname"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:layout_marginBottom="10dp"
@@ -108,12 +109,13 @@
               android:text="Long Name" />
 
             <TextView
+              android:id="@+id/anf_longname"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:layout_marginBottom="10dp"
               android:layout_weight="1"
               android:ellipsize="end"
-              android:maxLines="2"
+              android:maxLines="3"
               tools:text="This name is as long as the longest name in the whole World that the mankind has ever seen in its History" />
           </LinearLayout>
 
@@ -349,6 +351,7 @@
   </androidx.cardview.widget.CardView>
 
   <Button
+    android:id="@+id/anf_apply_button"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"

@@ -1,6 +1,10 @@
 package com.way2mars.ij.java.checkfirms;
 
 import android.util.Log;
+import androidx.annotation.Nullable;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,11 +14,22 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
 public final class QueryUtils {
     private static final String LOG_TAG = QueryUtils.class.getSimpleName();
+
+    private static class EgrulRecord{
+        String mDate;
+        String mText;
+
+        EgrulRecord(String date, String text){
+            mDate = date;
+            mText = text;
+        }
+    }
 
     public static ArrayList<FirmData> createFakeList() {
         ArrayList<FirmData> firmList = new ArrayList<>();
@@ -57,7 +72,8 @@ public final class QueryUtils {
     private static String readFromStream(InputStream inputStream) throws IOException {
         StringBuilder output = new StringBuilder();
         if (inputStream != null) {
-            InputStreamReader inputStreamReader = new InputStreamReader(inputStream, Charset.forName("UTF-8"));
+            // Charset.forName("UTF-8")
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
             BufferedReader reader = new BufferedReader(inputStreamReader);
             String line = reader.readLine();
             while (line != null) {
@@ -113,7 +129,7 @@ public final class QueryUtils {
     }
 
 
-    public static void fetchFirmData(String requestUrl) {
+    public static FirmData fetchFirmData(String requestUrl) {
         // Create URL object
         URL url = createUrl(requestUrl);
 
@@ -125,7 +141,138 @@ public final class QueryUtils {
             Log.e(LOG_TAG, "Problem making the HTTP request.", e);
         }
 
-        //extractFeatureFromJson(jsonResponse);
-        return;
+        FirmData firm = work_with_json(jsonResponse);
+        Log.d(LOG_TAG,firm.toString());
+        return firm;
+    }
+
+    private static String getAttribute(JSONObject json, String nameAttr, String defaultString){
+        try {
+            if(json.has("@attributes")){
+                JSONObject obj1 = json.getJSONObject("@attributes");
+                if(obj1.has(nameAttr)) {
+                    return obj1.getString(nameAttr);
+                }
+            }
+        }
+        catch (JSONException e) {
+            System.out.println("Problem parsing the JSON in {getAttribute} " + nameAttr);
+        }
+        return defaultString;
+    }
+
+
+    public static FirmData work_with_json(String input_string){
+        FirmData firmData = new FirmData();
+
+        // TODO check if json contains error 404
+
+        // Если есть ключ с таким именем, значит фирма ликвидирована
+        firmData.setLiquidationStatus( input_string.contains("СвПрекрЮЛ") );
+
+        // TODO сведения о недостоверности адреса
+        // input_string.contains("СвНедАдресЮЛ");
+
+        try {
+            JSONObject baseJsonResponse = new JSONObject(input_string);
+            // Если вдруг нет такого раздела, возвращаем неполные данные
+            if(!baseJsonResponse.has("СвЮЛ"))
+            {
+                firmData.setShortName("Нет данных. JSON error.");
+                return firmData;
+            }
+            JSONObject json_SvUL = baseJsonResponse.getJSONObject("СвЮЛ");
+
+            if(firmData.isLuqiudated()) getLiquiData(firmData, json_SvUL);
+            getInnData(firmData, json_SvUL);
+            getShortName(firmData, json_SvUL);
+
+            // List<EgrulRecord> egrulRecords = getAllEgrulRecords(json_SvUL);
+            applyLastRecord(firmData, getAllEgrulRecords(json_SvUL));
+        }
+        catch (JSONException e) {
+            Log.e("QueryUtils", "Problem parsing the earthquake JSON results", e);
+        }
+        return firmData;
+    }
+
+    private static void getLiquiData(FirmData firmData, JSONObject jsonSvUL){
+        try {
+            JSONObject jsonSvPrekrUL = jsonSvUL.getJSONObject("СвПрекрЮЛ");
+            JSONObject obj1 = jsonSvPrekrUL.getJSONObject("@attributes");
+            firmData.setDateLiquidation(obj1.getString("ДатаПрекрЮЛ"));
+
+            JSONObject obj2 = jsonSvPrekrUL.getJSONObject("СпПрекрЮЛ").getJSONObject("@attributes");
+            firmData.setReasonLiquidaton(obj2.getString("НаимСпПрекрЮЛ"));
+        }
+        catch (JSONException e) {
+            System.out.println("Problem parsing the JSON in {getLiquiData}");
+        }
+    }
+
+    private static void getInnData(FirmData firmData, JSONObject jsonSvUL){
+        firmData.setInn(getAttribute(jsonSvUL,"ИНН", "0"));
+    }
+
+    @Nullable
+    private static void getShortName(FirmData firmData, JSONObject jsonSvUL){
+        String result = null;
+        try {
+            if(jsonSvUL.has("СвНаимЮЛ")){
+                JSONObject jsonSvNaimUL = jsonSvUL.getJSONObject("СвНаимЮЛ");
+                if(jsonSvNaimUL.has("СвНаимЮЛСокр")) {
+                    JSONObject jsonSvNaimULSokr = jsonSvNaimUL.getJSONObject("СвНаимЮЛСокр");
+//                    JSONObject obj2 = jsonSvNaimULSokr.getJSONObject("@attributes");
+//                    result = obj2.getString("НаимСокр");
+                    result = getAttribute(jsonSvNaimULSokr, "НаимСокр", "Нет сокращённого наименования");
+                }
+//
+//                JSONObject obj1 = jsonSvUL.getJSONObject("@attributes");
+//                result = obj1.getString("НаимЮЛПолн");  // Полное наименование
+                firmData.setKeyValue("longName", getAttribute(jsonSvNaimUL,"НаимЮЛПолн", result));
+            }
+        }
+        catch (JSONException e) {
+            System.out.println("Problem parsing the JSON in {getShortName}");
+        }
+        firmData.setShortName(result);
+    }
+
+    private static List<EgrulRecord> getAllEgrulRecords(JSONObject jsonSvUL){
+        List<EgrulRecord> results = new ArrayList<>();
+
+        try {
+            if (!jsonSvUL.has("СвЗапЕГРЮЛ")) return results;
+
+            JSONArray records = jsonSvUL.getJSONArray("СвЗапЕГРЮЛ");
+
+            for (int i = 0; i < records.length(); i++) {
+                JSONObject currentRecord = records.getJSONObject(i);
+                JSONObject obj_1 = currentRecord.getJSONObject("@attributes");
+                JSONObject jsonVidZap = currentRecord.getJSONObject("ВидЗап");
+                JSONObject obj_2 = jsonVidZap.getJSONObject("@attributes");
+                String strDate = obj_1.getString("ДатаЗап");
+                String strText = obj_2.getString("НаимВидЗап");
+
+                EgrulRecord newRecord = new EgrulRecord(strDate, strText);
+                results.add(newRecord);
+            }
+        }
+        catch (JSONException e) {
+            System.out.println("Problem parsing the JSON in {getAllEgrulRecords}");
+        }
+        return results;
+    }
+
+    private static void applyLastRecord(FirmData firmData, List<EgrulRecord> listRecords){
+        if(listRecords != null && !listRecords.isEmpty()) {
+            EgrulRecord lastRecord = listRecords.get(listRecords.size()-1);
+            firmData.setDateLastChange(lastRecord.mDate);
+            firmData.setTextLastChange(lastRecord.mText);
+        }
+        else{
+            firmData.setDateLastChange("2000-01-01");
+            firmData.setTextLastChange("Записи не найдены");
+        }
     }
 }
