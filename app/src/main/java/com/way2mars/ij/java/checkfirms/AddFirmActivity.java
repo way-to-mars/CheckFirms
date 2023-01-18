@@ -70,8 +70,6 @@ public class AddFirmActivity extends AppCompatActivity {
 
         String urlString = convertToUrlString(stringInn);
 
-        showToast("Строка запроса: " + urlString);
-
         setView(SEARCHING);
 
         Runnable runnable = new Runnable() {
@@ -108,8 +106,10 @@ public class AddFirmActivity extends AppCompatActivity {
         TextView shortName = findViewById(R.id.anf_shortname);
         TextView longName = findViewById(R.id.anf_longname);
 
-        shortName.setText(firmData.getShortName());
-        longName.setText(firmData.getKeyValue("longName"));
+        shortName.setText(firmData.getValueDefault(firmData.SHORT_NAME, "n/a"));
+        longName.setText(firmData.getValueDefault(firmData.LONG_NAME, "n/a"));
+
+        Log.d(LOG_TAG, firmData.toString());
 
         setView(READY);
     }
