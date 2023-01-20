@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.Toast;
-import com.github.javafaker.Faker;
 
 import java.util.ArrayList;
 
@@ -25,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
     Toast mainToast=null;
     ArrayList<FirmData> mainArray=null;
     FirmListAdapter mainAdapter=null;
-    Faker faker = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
         final FirmListAdapter adapter = new FirmListAdapter(this, firms);
         this.mainArray = firms;
         this.mainAdapter = adapter;
-        this.faker = new Faker(new Locale("ru-RU"));
 
         listView.setAdapter(adapter);
 

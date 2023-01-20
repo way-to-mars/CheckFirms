@@ -3,9 +3,13 @@ package com.way2mars.ij.java.checkfirms;
 import android.os.Build;
 import android.util.Log;
 import androidx.annotation.Nullable;
+import com.jayway.jsonpath.Option;
 import org.jetbrains.annotations.NotNull;
 
-import java.time.LocalDate;
+import com.jayway.jsonpath.Configuration;
+import com.jayway.jsonpath.JsonPath;
+
+
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
@@ -57,6 +61,52 @@ public class FirmData implements Comparable<FirmData> {
 
     // Create from JSON
     public FirmData(String jsonString){
+        mapValues = new HashMap<>();
+
+        StringBuilder address = new StringBuilder();
+
+        Object document = Configuration.defaultConfiguration().addOptions(Option.SUPPRESS_EXCEPTIONS).jsonProvider().parse(jsonString);
+
+        this.setKeyValue(DATE_EGRUL, JsonPath.read(document, "$.СвЮЛ.ATTR.ДатаВып"));
+        this.setKeyValue(OGRN, JsonPath.read(document, "$.СвЮЛ.ATTR.ОГРН"));
+        this.setKeyValue(INN, JsonPath.read(document, "$.СвЮЛ.ATTR.ИНН"));
+        this.setKeyValue(KPP, JsonPath.read(document, "$.СвЮЛ.ATTR.КПП"));
+
+        this.setKeyValue(LONG_NAME, JsonPath.read(document, "$.СвЮЛ.СвНаимЮЛ.ATTR.НаимЮЛПолн"));
+        this.setKeyValue(SHORT_NAME, JsonPath.read(document, "$.СвЮЛ.СвНаимЮЛ.СвНаимЮЛСокр.ATTR.НаимСокр"));
+
+        addressAppend(address, document, "$.СвЮЛ.СвАдресЮЛ.АдресРФ.ATTR.Индекс","");
+        addressAppend(address, document, "$.СвЮЛ.СвАдресЮЛ.АдресРФ.Регион.ATTR.ТипРегион",", ");
+        addressAppend(address, document, "$.СвЮЛ.СвАдресЮЛ.АдресРФ.Регион.ATTR.НаимРегион"," ");
+        addressAppend(address, document, "$.СвЮЛ.СвАдресЮЛ.АдресРФ.Город.ATTR.ТипГород",", ");
+        addressAppend(address, document, "$.СвЮЛ.СвАдресЮЛ.АдресРФ.Город.ATTR.НаимГород"," ");
+        addressAppend(address, document, "$.СвЮЛ.СвАдресЮЛ.АдресРФ.Улица.ATTR.ТипУлица",", ");
+        addressAppend(address, document, "$.СвЮЛ.СвАдресЮЛ.АдресРФ.Улица.ATTR.НаимУлица"," ");
+        addressAppend(address, document, "$.СвЮЛ.СвАдресЮЛ.АдресРФ.ATTR.Дом",", ");
+        addressAppend(address, document, "$.СвЮЛ.СвАдресЮЛ.АдресРФ.ATTR.Корп",", ");
+        addressAppend(address, document, "$.СвЮЛ.СвАдресЮЛ.АдресРФ.ATTR.Кварт",", ");
+
+        Log.d(LOG_TAG,address.toString());
+        Log.d(LOG_TAG,mapValues.toString());
+    }
+
+    private void addressAppend(StringBuilder strBuilder, Object jsonDoc, String path, String strDelimiter){
+        try{
+            String jsonString = JsonPath.read(jsonDoc, path);
+            if(jsonString == null) return;
+
+            if(strBuilder.length() > 0) strBuilder.append(strDelimiter);
+            strBuilder.append(jsonString);
+        }
+        catch (Exception e)
+        {
+            Log.d(LOG_TAG, e.toString());
+        }
+    }
+
+
+    // Create from JSON
+    public void FirmDataOld(String jsonString){
         mapValues = new HashMap<>();
 
         StringBuilder matching_key = new StringBuilder();
@@ -132,7 +182,7 @@ public class FirmData implements Comparable<FirmData> {
 
                 // two possible endings for value-string: '"}' and '",'
                 end_i = minIndex(   jsonString.indexOf("\"}", start_i),
-                                    jsonString.indexOf("\",", start_i));
+                        jsonString.indexOf("\",", start_i));
                 if( end_i == -1 ) break; // broken json-string
 
                 String value_string = jsonString.substring(start_i, end_i).replaceAll("\\\\", "");
@@ -145,7 +195,7 @@ public class FirmData implements Comparable<FirmData> {
                 i = i+1;
             }
         }
-
+        return;
     }
 
     /**
@@ -169,13 +219,14 @@ public class FirmData implements Comparable<FirmData> {
         return mapValues.containsKey(DATE_LIQUIDATION);
     }
 
-    public void setKeyValue(String keyName, String value) {
+    public void setKeyValue(String keyName, @Nullable String value) {
         if (keyName != null && value != null)
             if (keyName.length() > 0 && value.length() > 0) {
                 mapValues.put(keyName, value);
+                Log.d(LOG_TAG, String.format("setKeyValue ::  {%s} : {%s}", keyName, value));
                 return;
             }
-        Log.d(LOG_TAG, "setKeyValue ::  wrong input");
+        Log.d(LOG_TAG, "setKeyValue :: wrong input :: " + String.format("{%s} : {%s}", keyName, value));
     }
 
     public void setKeyValueOnce(String keyName, String value) {
@@ -194,29 +245,29 @@ public class FirmData implements Comparable<FirmData> {
         else mapValues.remove(BOOL_ADDRESS);
     }
 
-    @NotNull
-    public String toString() {
-        return mapValues.toString();
-    }
+//    @NotNull
+//    public String toString() {
+//        return mapValues.toString();
+//    }
+//
+//    @Nullable
+//    private LocalDate string2date(String stringDate) {
+//        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//        try {
+//            return LocalDate.parse(stringDate, fmt);
+//        } catch (Exception RuntimeException) {
+//            return null;
+//        }
+//    }
 
-    @Nullable
-    private LocalDate string2date(String stringDate) {
-        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        try {
-            return LocalDate.parse(stringDate, fmt);
-        } catch (Exception RuntimeException) {
-            return null;
-        }
-    }
-
-    @NotNull
-    public String date2string(@Nullable LocalDate date) {
-        if (date == null) return "нет данных";
-
-        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-        return date.format(fmt);
-    }
-
+//    @NotNull
+//    public String date2string(@Nullable LocalDate date) {
+//        if (date == null) return "нет данных";
+//
+//        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+//        return date.format(fmt);
+//    }
+//
     @Override
     public int compareTo(@Nullable FirmData right) {
         if(right == null) return 0;

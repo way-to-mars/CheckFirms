@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 public final class QueryUtils {
     private static final String LOG_TAG = QueryUtils.class.getSimpleName();
+    public static final String ATTRIBUTES_TAG = "ATTR";
 
 
     public static ArrayList<FirmData> createFakeList() {
@@ -58,6 +59,7 @@ public final class QueryUtils {
      * whole JSON response from the server.
      */
     private static String readFromStream(InputStream inputStream) throws IOException {
+        final String origin_tag = "@attributes";
         StringBuilder output = new StringBuilder();
         if (inputStream != null) {
             // Charset.forName("UTF-8")
@@ -65,7 +67,7 @@ public final class QueryUtils {
             BufferedReader reader = new BufferedReader(inputStreamReader);
             String line = reader.readLine();
             while (line != null) {
-                output.append(line);
+                output.append(line.replaceAll(origin_tag, ATTRIBUTES_TAG));  // change @attributes to ATTRIBUTES_TAG
                 line = reader.readLine();
             }
         }
