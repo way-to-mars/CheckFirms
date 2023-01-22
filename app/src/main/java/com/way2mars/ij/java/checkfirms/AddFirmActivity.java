@@ -21,6 +21,9 @@ public class AddFirmActivity extends AppCompatActivity {
     private final static String urlPart1 = "https://egrul.itsoft.ru/";
     private final static String urlPart2 = ".json";
 
+    private final static String urlShortPart1 = "https://egrul.itsoft.ru/short_data/?";
+    private final static String urlShortPart2 = ".json";
+
     // Constants to enumerate states of ActivityView
     public static final int START = 1;
     public static final int SEARCHING = 2;
@@ -59,16 +62,23 @@ public class AddFirmActivity extends AppCompatActivity {
         return false;
     }
 
-    // convert inn to "https://egrul.itsoft.ru/{inn}.json.gz"
+    // convert inn to "https://egrul.itsoft.ru/{inn}.json"
     @NotNull
     private String convertToUrlString(@NotNull String stringInn){
         return urlPart1 + stringInn + urlPart2;
+    }
+
+    // convert inn to "https://egrul.itsoft.ru/short_data/?{inn}.json"
+    @NotNull
+    private String convertToUrlShortString(@NotNull String stringInn){
+        return urlShortPart1 + stringInn + urlShortPart2;
     }
 
     private void loadFirm(@NotNull String stringInn){
         if( !checkInnString(stringInn) ) return;
 
         String urlString = convertToUrlString(stringInn);
+        String urlShortString = convertToUrlShortString(stringInn);
 
         setView(SEARCHING);
 
@@ -77,7 +87,7 @@ public class AddFirmActivity extends AppCompatActivity {
             public void run() {
                 FirmData firm;  //null
                 try {
-                    firm = QueryUtils.fetchFirmData(urlString);
+                    firm = QueryUtils.fetchFirmData(urlString, urlShortString);
                     // Thread.sleep(3000);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
@@ -105,9 +115,13 @@ public class AddFirmActivity extends AppCompatActivity {
 
         TextView shortName = findViewById(R.id.anf_shortname);
         TextView longName = findViewById(R.id.anf_longname);
+        TextView chiefPosition = findViewById(R.id.anf_chief_position);
+        TextView chiefFullName = findViewById(R.id.anf_chief_fullname);
 
         shortName.setText(firmData.getValueDefault(firmData.SHORT_NAME, "n/a"));
-        longName.setText(firmData.getValueDefault(firmData.LONG_NAME, "n/a"));
+        longName.setText(firmData.getValueDefault(firmData.FULL_NAME, "n/a"));
+        chiefPosition.setText(firmData.getValueDefault(firmData.CHIEF_POSITION, "Руководитель"));
+        chiefFullName.setText(firmData.getValueDefault(firmData.CHIEF_FULLNAME, "n/a"));
 
         Log.d(LOG_TAG, firmData.toString());
 

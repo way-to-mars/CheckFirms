@@ -119,21 +119,31 @@ public final class QueryUtils {
     }
 
     @Nullable
-    public static FirmData fetchFirmData(String requestUrl) {
+    public static FirmData fetchFirmData(String requestUrl, String requestUrlShort) {
         // Create URL object
-        URL url = createUrl(requestUrl);
-        if(url == null) return null;
+        URL urlLong = createUrl(requestUrl);
+        URL urlShort = createUrl(requestUrlShort);
+        String jsonLong = null;
+        String jsonShort = null;
+        if(urlLong != null) {
 
-        // Perform HTTP request to the URL and receive a JSON response back
-        String jsonResponse = null;
-        try {
-            jsonResponse = makeHttpRequest(url);
-        } catch (IOException e) {
-            Log.e(LOG_TAG, "Problem making the HTTP request.", e);
+            try {
+                jsonLong = makeHttpRequest(urlLong);
+            } catch (IOException e) {
+                Log.e(LOG_TAG, "Problem making the HTTP request.", e);
+            }
+        }
+        if(urlShort != null) {
+
+            try {
+                jsonShort = makeHttpRequest(urlShort);
+            } catch (IOException e) {
+                Log.e(LOG_TAG, "Problem making the HTTP request.", e);
+            }
         }
 
-        if( jsonResponse == null) return null;
+        if( jsonLong==null || jsonShort==null) return null;
 
-        return new FirmData(jsonResponse);
+        return new FirmData(jsonLong, jsonShort);
     }
 }

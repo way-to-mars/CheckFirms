@@ -1,34 +1,35 @@
 package com.way2mars.ij.java.checkfirms;
 
-import android.os.Build;
 import android.util.Log;
 import androidx.annotation.Nullable;
-import com.jayway.jsonpath.Option;
 import org.jetbrains.annotations.NotNull;
 
 import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.JsonPath;
 
 
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 
 public class FirmData implements Comparable<FirmData> {
     public final String DATE_EGRUL = "FD_DATE_EGRUL";
     public final String SHORT_NAME = "FD_SHORT_NAME";
-    public final String LONG_NAME = "FD_LONG_NAME";
+    public final String FULL_NAME = "FD_FULL_NAME";
     public final String INN = "FD_INN";
     public final String KPP = "FD_KPP";
     public final String OGRN = "FD_OGRN";
     public final String DATE_OGRN = "FD_DATE_OGRN";
     public final String ADDRESS = "FD_ADDRESS";
+    public final String CHIEF_POSITION = "FD_CHIEF_POSITION";
+    public final String CHIEF_FULLNAME = "FD_CHIEF_FULLNAME";
     public final String TEXT_LAST_CHANGE = "FD_TEXT_LAST_CHANGE";
     public final String DATE_LAST_CHANGE = "FD_DATE_LAST_CHANGE";
     public final String REASON_LIQUIDATION = "FD_REASON_LIQUIDATION";
     public final String DATE_LIQUIDATION = "FD_DATE_LIQUIDATION";
-    private final String BOOL_ADDRESS = "FD_BOOLEAN_ADDRESS_WARNING";
+    private final String BOOL_ADDRESS_WARNING = "FD_BOOLEAN_ADDRESS_WARNING";
 
     private final String LOG_TAG = "FirmData.class";
 
@@ -60,147 +61,53 @@ public class FirmData implements Comparable<FirmData> {
     }
 
     // Create from JSON
-    public FirmData(String jsonString){
+    public FirmData(@NotNull String jsonLong,@NotNull String jsonShort){
         mapValues = new HashMap<>();
 
-        StringBuilder address = new StringBuilder();
+        /*
+            Fetching data from https://egrul.itsoft.ru/short_data/?{inn}.json
+         */
+        Object docShort = Configuration.defaultConfiguration().jsonProvider().parse(jsonShort);
 
-        Object document = Configuration.defaultConfiguration().addOptions(Option.SUPPRESS_EXCEPTIONS).jsonProvider().parse(jsonString);
+        setKeyValue(DATE_OGRN, fetchString(docShort, "$.reg_date"));
+        setKeyValue(OGRN, fetchString(docShort, "$.ogrn"));
+        setKeyValue(INN, fetchString(docShort, "$.inn"));
+        setKeyValue(KPP, fetchString(docShort, "$.kpp"));
+        setKeyValue(SHORT_NAME, fetchString(docShort, "$.short_name"));
+        setKeyValue(FULL_NAME, fetchString(docShort, "$.full_name"));
+        setKeyValue(ADDRESS, fetchString(docShort, "$.address"));
+        setKeyValue(CHIEF_POSITION, fetchString(docShort, "$.chief_position"));
+        setKeyValue(CHIEF_FULLNAME, fetchString(docShort, "$.chief"));
 
-        this.setKeyValue(DATE_EGRUL, JsonPath.read(document, "$.СвЮЛ.ATTR.ДатаВып"));
-        this.setKeyValue(OGRN, JsonPath.read(document, "$.СвЮЛ.ATTR.ОГРН"));
-        this.setKeyValue(INN, JsonPath.read(document, "$.СвЮЛ.ATTR.ИНН"));
-        this.setKeyValue(KPP, JsonPath.read(document, "$.СвЮЛ.ATTR.КПП"));
+        /*
+            Fetching data from https://egrul.itsoft.ru/{inn}.json
+         */
+        Object docLong = Configuration.defaultConfiguration().jsonProvider().parse(jsonLong);
 
-        this.setKeyValue(LONG_NAME, JsonPath.read(document, "$.СвЮЛ.СвНаимЮЛ.ATTR.НаимЮЛПолн"));
-        this.setKeyValue(SHORT_NAME, JsonPath.read(document, "$.СвЮЛ.СвНаимЮЛ.СвНаимЮЛСокр.ATTR.НаимСокр"));
+        setKeyValue(DATE_EGRUL, fetchString(docLong, "$.СвЮЛ.ATTR.ДатаВып"));
+        setAddressWarning( jsonLong.contains("СвНедАдресЮЛ") );
+        setKeyValue(DATE_LIQUIDATION, fetchString(docLong, "$.СвЮЛ.СвПрекрЮЛ.ATTR.ДатаПрекрЮЛ"));
+        setKeyValue(REASON_LIQUIDATION, fetchString(docLong, "$.СвЮЛ.СвПрекрЮЛ.СпПрекрЮЛ.ATTR.НаимСпПрекрЮЛ"));
+        setKeyValue(DATE_LAST_CHANGE, fetchString(docLong, "$.СвЮЛ.СвЗапЕГРЮЛ[-1].ATTR.ДатаЗап"));
+        setKeyValue(TEXT_LAST_CHANGE, fetchString(docLong, "$.СвЮЛ.СвЗапЕГРЮЛ[-1].ВидЗап.ATTR.НаимВидЗап"));
 
-        addressAppend(address, document, "$.СвЮЛ.СвАдресЮЛ.АдресРФ.ATTR.Индекс","");
-        addressAppend(address, document, "$.СвЮЛ.СвАдресЮЛ.АдресРФ.Регион.ATTR.ТипРегион",", ");
-        addressAppend(address, document, "$.СвЮЛ.СвАдресЮЛ.АдресРФ.Регион.ATTR.НаимРегион"," ");
-        addressAppend(address, document, "$.СвЮЛ.СвАдресЮЛ.АдресРФ.Город.ATTR.ТипГород",", ");
-        addressAppend(address, document, "$.СвЮЛ.СвАдресЮЛ.АдресРФ.Город.ATTR.НаимГород"," ");
-        addressAppend(address, document, "$.СвЮЛ.СвАдресЮЛ.АдресРФ.Улица.ATTR.ТипУлица",", ");
-        addressAppend(address, document, "$.СвЮЛ.СвАдресЮЛ.АдресРФ.Улица.ATTR.НаимУлица"," ");
-        addressAppend(address, document, "$.СвЮЛ.СвАдресЮЛ.АдресРФ.ATTR.Дом",", ");
-        addressAppend(address, document, "$.СвЮЛ.СвАдресЮЛ.АдресРФ.ATTR.Корп",", ");
-        addressAppend(address, document, "$.СвЮЛ.СвАдресЮЛ.АдресРФ.ATTR.Кварт",", ");
-
-        Log.d(LOG_TAG,address.toString());
-        Log.d(LOG_TAG,mapValues.toString());
     }
 
-    private void addressAppend(StringBuilder strBuilder, Object jsonDoc, String path, String strDelimiter){
-        try{
-            String jsonString = JsonPath.read(jsonDoc, path);
-            if(jsonString == null) return;
-
-            if(strBuilder.length() > 0) strBuilder.append(strDelimiter);
-            strBuilder.append(jsonString);
+    private String fetchString(Object o, String jsonPath){
+        try {
+            return JsonPath.read(o, jsonPath);
         }
-        catch (Exception e)
-        {
-            Log.d(LOG_TAG, e.toString());
+        catch (Exception e){
+            Log.d(LOG_TAG, "fetchString :: wrong path " + jsonPath);
         }
+        return null;
     }
 
 
-    // Create from JSON
-    public void FirmDataOld(String jsonString){
-        mapValues = new HashMap<>();
-
-        StringBuilder matching_key = new StringBuilder();
-        int len = jsonString.length();
-        int i=1; // point to start (index of String)
-        int j=0;
-
-        while (true) {
-            /*
-                Step 1. Searching for '{"' or ',"' as a start of a key name
-            */
-            if (i >= len-2) break;
-            int start_i = jsonString.indexOf('"', i);
-            if( start_i == -1 || start_i >= len-1 ) break; // reach the end of json-string
-
-            char prev = jsonString.charAt(start_i - 1);
-            if (prev == '{' || prev == ',')  // search for '{"' or ',"' as a start of a key name
-            {
-                int end_i = jsonString.indexOf("\":", i+1);
-                if( end_i == -1 || end_i >= len-1 ) break; // reach the end of json-string
-
-                /*
-                    Step 2. Retrieving key-string
-                */
-                if( end_i < start_i+2) break; // key-string must be at least 1 character long
-                String key_string = jsonString.substring(start_i+1, end_i);
-                j++;
-
-
-                /*
-                  Step 3. Check if this key-string is needed for FirmData constructor
-                 */
-                matching_key.setLength(0);
-                switch (key_string){
-                    case "ДатаВып": matching_key.append(DATE_EGRUL);
-                        break;
-                    case "НаимСокр": matching_key.append(SHORT_NAME);
-                        break;
-                    case "НаимЮЛПолн": matching_key.append(LONG_NAME);
-                        break;
-                    case "ИНН": matching_key.append(INN);
-                        break;
-                    case "КПП": matching_key.append(KPP);
-                        break;
-                    case "ОГРН": matching_key.append(OGRN);
-                        break;
-                    case "ДатаОГРН": matching_key.append(DATE_OGRN);
-                        break;
-                    case "ДатаПрекрЮЛ": matching_key.append(DATE_LIQUIDATION);
-                        break;
-                    case "НаимСпПрекрЮЛ": matching_key.append(REASON_LIQUIDATION);
-                        break;
-                    case "СвНедАдресЮЛ": this.setKeyValue(BOOL_ADDRESS,"True");
-                        Log.d(LOG_TAG, "ADD >> Недостоверность адреса");
-                        break;
-//                  public final String ADDRESS = "FD_ADDRESS";
-                }
-
-                if( matching_key.length() == 0){
-                    i = end_i+1;
-                    continue;
-                }
-
-                System.out.printf("[Total %d] - %d -[%d, %d] %s", len, j, start_i, end_i, key_string);
-
-                /*
-                  Step 4. if key-string is what we need then
-                           trying to get value-string
-                 */
-
-                start_i = end_i+3;
-                if (start_i >= len-2) break; // reach the end of json-string
-
-                // two possible endings for value-string: '"}' and '",'
-                end_i = minIndex(   jsonString.indexOf("\"}", start_i),
-                        jsonString.indexOf("\",", start_i));
-                if( end_i == -1 ) break; // broken json-string
-
-                String value_string = jsonString.substring(start_i, end_i).replaceAll("\\\\", "");
-                this.setKeyValue(matching_key.toString(), value_string);
-                System.out.printf("\t%s\n", value_string);
-
-                i = end_i+1;
-            }
-            else {
-                i = i+1;
-            }
-        }
-        return;
-    }
 
     /**
      * Basic setter and getter for FirmDate
-     * keyName = constant String (SHORT_NAME / LONG_NAME / INN ...)
+     * keyName = constant String (SHORT_NAME / FULL_NAME / INN ...)
      * value = Text String
      */
     public String getValue(String keyName) {
@@ -212,7 +119,7 @@ public class FirmData implements Comparable<FirmData> {
     }
 
     public Boolean hasAddressWarning(){
-        return mapValues.containsKey(BOOL_ADDRESS);
+        return mapValues.containsKey(BOOL_ADDRESS_WARNING);
     }
 
     public Boolean isLiquidated(){
@@ -240,60 +147,40 @@ public class FirmData implements Comparable<FirmData> {
     }
 
 
-    public void setAddressStatus(@NotNull Boolean state){
-        if( state ) mapValues.put(BOOL_ADDRESS, "True");
-        else mapValues.remove(BOOL_ADDRESS);
+    public void setAddressWarning(@NotNull Boolean state){
+        Log.d(LOG_TAG, String.format("setAddressStatus :: недостоверность %b", state));
+        if( state ) mapValues.put(BOOL_ADDRESS_WARNING, "True");
+        else mapValues.remove(BOOL_ADDRESS_WARNING);
     }
 
-//    @NotNull
-//    public String toString() {
-//        return mapValues.toString();
-//    }
-//
-//    @Nullable
-//    private LocalDate string2date(String stringDate) {
-//        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//        try {
-//            return LocalDate.parse(stringDate, fmt);
-//        } catch (Exception RuntimeException) {
-//            return null;
-//        }
-//    }
+    @NotNull
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+        //return mapValues.toString();
+        Set<String> setKeys = mapValues.keySet();
+        for(String k: setKeys){
+            result.append("" + k + "\t:\t" + mapValues.get(k) + "\n");
+        }
 
-//    @NotNull
-//    public String date2string(@Nullable LocalDate date) {
-//        if (date == null) return "нет данных";
-//
-//        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-//        return date.format(fmt);
-//    }
-//
+        return result.toString();
+    }
+
     @Override
     public int compareTo(@Nullable FirmData right) {
         if(right == null) return 0;
-        return 0;
-        // Дата по убыванию
-//        assert this.mDateLastChange != null;
-//        int result = -this.mDateLastChange.compareTo(right.mDateLastChange);
-//
-//        // Название по алфавиту
-//        if (result == 0) {
-//            result = this.mShortName.compareTo(right.mShortName);
-//        }
-//        return result;
+
+        // Date is descending
+        int result = -this.getValueDefault(DATE_EGRUL, "0").
+                compareTo(right.getValueDefault(DATE_EGRUL,"0"));
+
+        // Name by alphabet
+        if (result == 0) {
+            result = this.getValueDefault(SHORT_NAME, "0").
+                    compareTo(right.getValueDefault(SHORT_NAME,"0"));
+        }
+        return result;
     }
 
-    /**
-     * Searching min(a, b), but remember that:
-     * @param a can be -1
-     * @param b can be -1
-     * @return min(a, b) if they are positive or return -1
-     */
-    private static int minIndex(int a, int b){
-        if( a == -1) return Math.max(-1, b);
-        if( b == -1) return Math.max(-1, a);
-        return Math.min(a, b);
-    }
 }
 
 
