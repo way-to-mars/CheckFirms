@@ -4,8 +4,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:orientation="vertical"
-  android:scrollbarSize="4dp">
+  android:orientation="vertical">
 
   <androidx.cardview.widget.CardView
     android:layout_width="match_parent"
@@ -37,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_weight="2"
-        android:text="@string/anf_search_button"/>
+        android:text="@string/anf_search_button" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
   </androidx.cardview.widget.CardView>
@@ -57,19 +56,18 @@
       android:layout_margin="20dp">
 
       <ProgressBar
-          android:id="@+id/anf_progress_bar"
-          style="?android:attr/progressBarStyle"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center"
-          android:layout_weight="1"
-        android:visibility="gone"/>
+        android:id="@+id/anf_progress_bar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:visibility="gone" />
 
       <ScrollView
         android:id="@+id/anf_scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <LinearLayout
           android:layout_width="match_parent"
@@ -142,7 +140,7 @@
               android:layout_weight="2"
               android:ellipsize="end"
               android:maxLines="2"
-              android:text="ОГРН" />
+              android:text="@string/anf_ogrn" />
 
             <TextView
               android:id="@+id/anf_ogrn"
@@ -168,7 +166,7 @@
               android:layout_weight="2"
               android:ellipsize="end"
               android:maxLines="2"
-              android:text="Дата ОГРН" />
+              android:text="@string/anf_ogrn_date" />
 
             <TextView
               android:id="@+id/anf_ogrn_date"
@@ -194,7 +192,7 @@
               android:layout_weight="2"
               android:ellipsize="end"
               android:maxLines="2"
-              android:text="ИНН" />
+              android:text="@string/anf_inn" />
 
             <TextView
               android:id="@+id/anf_inn"
@@ -220,7 +218,7 @@
               android:layout_weight="2"
               android:ellipsize="end"
               android:maxLines="2"
-              android:text="КПП" />
+              android:text="@string/anf_kpp" />
 
             <TextView
               android:id="@+id/anf_kpp"
@@ -247,7 +245,7 @@
               android:layout_weight="2"
               android:ellipsize="end"
               android:maxLines="2"
-              android:text="Руководитель" />
+              android:text="@string/anf_chief_common_title" />
 
             <TextView
               android:id="@+id/anf_chief_fullname"
@@ -257,7 +255,7 @@
               android:layout_weight="1"
               android:ellipsize="end"
               android:maxLines="4"
-              android:text="Соколов Семен Игнатович" />
+              tools:text="Соколов Семен Игнатович" />
           </LinearLayout>
 
           <LinearLayout
@@ -266,32 +264,33 @@
             android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:orientation="horizontal">
-            <TextView
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:layout_marginEnd="10dp"
-              android:layout_marginBottom="10dp"
-                android:layout_weight="1"
-              android:ellipsize="end"
-              android:maxLines="2"
-              android:text="Адрес" />
-            <TextView
+              android:layout_weight="2"
+              android:orientation="horizontal">
+
+              <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="@string/anf_address" />
+
+              <TextView
                 android:id="@+id/anf_address_status"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:background="@drawable/address_circle"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="0dp"
+                android:layout_gravity="end"
                 android:gravity="center"
-                android:ellipsize="end"
                 android:textSize="10dp"
                 android:maxLines="1"
-                android:layout_weight="0"
-                android:text="\?" />
+                android:text="@string/anf_unknown_status_text"
+                tools:ignore="SpUsage" />
 
             </LinearLayout>
 
@@ -303,7 +302,61 @@
               android:layout_weight="1"
               android:ellipsize="end"
               android:maxLines="4"
-              android:text="улица Пушкина, дом Кукушкина, 8/16" />
+              tools:text="улица Пушкина, дом Кукушкина, 8/16" />
+          </LinearLayout>
+
+          <LinearLayout
+            android:id="@+id/anf_layout_liquidate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginEnd="10dp"
+              android:layout_marginBottom="10dp"
+              android:layout_weight="2"
+              android:ellipsize="end"
+              android:maxLines="2"
+              android:text="@string/anf_liquidation_date" />
+
+            <TextView
+              android:id="@+id/anf_date_liquidation"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginBottom="10dp"
+              android:layout_weight="1"
+              android:ellipsize="end"
+              android:maxLines="4"
+              tools:text="01.01.2035" />
+          </LinearLayout>
+
+          <LinearLayout
+            android:id="@+id/anf_layout_liquireason"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginEnd="10dp"
+              android:layout_marginBottom="10dp"
+              android:layout_weight="2"
+              android:ellipsize="end"
+              android:maxLines="2"
+              android:text="@string/anf_liquidation_reason" />
+
+            <TextView
+              android:id="@+id/anf_reason_liquidation"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginBottom="10dp"
+              android:layout_weight="1"
+              android:ellipsize="end"
+              android:maxLines="4"
+              tools:text="Так было нужно" />
           </LinearLayout>
 
           <LinearLayout
@@ -319,16 +372,17 @@
               android:layout_weight="2"
               android:ellipsize="end"
               android:maxLines="2"
-              android:text="Meaningless" />
+              android:text="@string/anf_date_last_record" />
 
             <TextView
+              android:id="@+id/anf_date_last_record"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:layout_marginBottom="10dp"
               android:layout_weight="1"
               android:ellipsize="end"
               android:maxLines="4"
-              android:text="explanation text message. Just to fill the space.\n101\n404" />
+              tools:text="01-01-2035" />
           </LinearLayout>
 
           <LinearLayout
@@ -344,43 +398,18 @@
               android:layout_weight="2"
               android:ellipsize="end"
               android:maxLines="2"
-              android:text="Meaningless" />
+              android:text="@string/anf_name_last_record" />
 
             <TextView
+              android:id="@+id/anf_text_last_record"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:layout_marginBottom="10dp"
               android:layout_weight="1"
               android:ellipsize="end"
               android:maxLines="4"
-              android:text="explanation text message. Just to fill the space.\n101\n404" />
+              tools:text="внесена запись о безвременном изменении краткосрочного послестрочия" />
           </LinearLayout>
-
-          <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginEnd="10dp"
-              android:layout_marginBottom="10dp"
-              android:layout_weight="2"
-              android:ellipsize="end"
-              android:maxLines="2"
-              android:text="Meaningless" />
-
-            <TextView
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginBottom="10dp"
-              android:layout_weight="1"
-              android:ellipsize="end"
-              android:maxLines="4"
-              android:text="explanation text message. Just to fill the space.\n101\n404" />
-          </LinearLayout>
-
         </LinearLayout>
       </ScrollView>
     </LinearLayout>
@@ -393,7 +422,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
     android:layout_marginBottom="20dp"
-    android:text="Apply" />
+    android:text="@string/anf_button_apply" />
 
 
 </LinearLayout>

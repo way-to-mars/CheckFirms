@@ -7,4 +7,16 @@
   <string name="anf_inn_hint">укажите ИНН</string>
   <string name="anf_short_name">Сокр. наим.</string>
   <string name="anf_fullname">Полное наим.</string>
+  <string name="anf_ogrn_date">Дата ОГРН</string>
+  <string name="anf_inn">ИНН</string>
+  <string name="anf_kpp">КПП</string>
+  <string name="anf_address">Адрес</string>
+  <string name="anf_unknown_status_text">\?</string>
+  <string name="anf_chief_common_title">Руководитель</string>
+  <string name="anf_liquidation_date">Дата ликвидации</string>
+  <string name="anf_liquidation_reason">Причина ликвидации</string>
+  <string name="anf_button_apply">Добавить</string>
+  <string name="anf_date_last_record">Дата посл.записи</string>
+  <string name="anf_name_last_record">Последняя запись в ЕГРЮЛ</string>
+  <string name="anf_ogrn">ОГРН</string>
 </resources>

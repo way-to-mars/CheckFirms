@@ -1,7 +1,6 @@
 package com.way2mars.ij.java.checkfirms;
 
 import android.util.Log;
-
 import androidx.annotation.Nullable;
 
 import java.io.BufferedReader;
@@ -11,7 +10,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
@@ -78,11 +76,11 @@ public final class QueryUtils {
      * Make an HTTP request to the given URL and return a String as the response.
      */
     private static String makeHttpRequest(URL url) throws IOException {
-        String jsonResponse = "";
+        String jsonResponse = null;
 
         // If the URL is null, then return early.
         if (url == null) {
-            return jsonResponse;
+            return null;
         }
 
         HttpURLConnection urlConnection = null;
@@ -109,9 +107,6 @@ public final class QueryUtils {
                 urlConnection.disconnect();
             }
             if (inputStream != null) {
-                // Closing the input stream could throw an IOException, which is why
-                // the makeHttpRequest(URL url) method signature specifies than an IOException
-                // could be thrown.
                 inputStream.close();
             }
         }
@@ -125,7 +120,7 @@ public final class QueryUtils {
         URL urlShort = createUrl(requestUrlShort);
         String jsonLong = null;
         String jsonShort = null;
-        if(urlLong != null) {
+        if (urlLong != null) {
 
             try {
                 jsonLong = makeHttpRequest(urlLong);
@@ -133,7 +128,7 @@ public final class QueryUtils {
                 Log.e(LOG_TAG, "Problem making the HTTP request.", e);
             }
         }
-        if(urlShort != null) {
+        if (urlShort != null) {
 
             try {
                 jsonShort = makeHttpRequest(urlShort);
@@ -142,7 +137,9 @@ public final class QueryUtils {
             }
         }
 
-        if( jsonLong==null || jsonShort==null) return null;
+        if (jsonLong == null || jsonShort == null) return null;
+        if (jsonLong.contains("\"error\":")) return null;
+        if (jsonShort.startsWith("Ошибка")) return null;
 
         return new FirmData(jsonLong, jsonShort);
     }

@@ -96,8 +96,8 @@ public final class FirmDataJson {
     private static void applyLastRecord(FirmData firmData, List<EgrulRecord> listRecords){
         if(listRecords != null && !listRecords.isEmpty()) {
             EgrulRecord lastRecord = listRecords.get(listRecords.size()-1);
-            firmData.setKeyValue(firmData.DATE_LAST_CHANGE, lastRecord.mDate);
-            firmData.setKeyValue(firmData.TEXT_LAST_CHANGE, lastRecord.mText);
+            firmData.setKeyValue(firmData.DATE_LAST_RECORD, lastRecord.mDate);
+            firmData.setKeyValue(firmData.TEXT_LAST_RECORD, lastRecord.mText);
         }
     }
 

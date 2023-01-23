@@ -109,12 +109,8 @@ public class AddFirmActivity extends AppCompatActivity {
         webThread.start();
     }
 
-    private void displayNewFirm(FirmData firmData){
-        if(firmData == null){
-            setView(START);
-            showToast("Организация с таким ИНН не найдена!");
-            return;
-        }
+    private void displayNewFirm(final FirmData firmDataInput){
+        FirmData firmData;
 
         TextView shortName = findViewById(R.id.anf_shortname);
         TextView longName = findViewById(R.id.anf_longname);
@@ -126,31 +122,58 @@ public class AddFirmActivity extends AppCompatActivity {
         TextView chiefFullName = findViewById(R.id.anf_chief_fullname);
         TextView addressStatus = findViewById(R.id.anf_address_status);
         TextView address = findViewById(R.id.anf_address);
-
+        TextView dateLiquidation = findViewById(R.id.anf_date_liquidation);
+        TextView reasonLiquidation = findViewById(R.id.anf_reason_liquidation);
+        TextView dateLastRecord = findViewById(R.id.anf_date_last_record);
+        TextView textLastRecord = findViewById(R.id.anf_text_last_record);
+        View layoutLiquidate = findViewById(R.id.anf_layout_liquidate);
+        View layoutLiquireason = findViewById(R.id.anf_layout_liquireason);
         GradientDrawable addressCircle = (GradientDrawable) addressStatus.getBackground();
 
-        shortName.setText(firmData.getValueDefault(firmData.SHORT_NAME, "n/a"));
-        longName.setText(firmData.getValueDefault(firmData.FULL_NAME, "n/a"));
-        address.setText(firmData.getValueDefault(firmData.ADDRESS, "n/a"));
-        ogrn.setText(firmData.getValueDefault(firmData.OGRN, "n/a"));
-        ogrnDate.setText(firmData.getValueDefault(firmData.DATE_OGRN, "n/a"));
-        inn.setText(firmData.getValueDefault(firmData.INN, "n/a"));
-        kpp.setText(firmData.getValueDefault(firmData.KPP, "n/a"));
-        chiefPosition.setText(firmData.getValueDefault(firmData.CHIEF_POSITION, "Руководитель"));
-        chiefFullName.setText(firmData.getValueDefault(firmData.CHIEF_FULLNAME, "n/a"));
-
-        if(firmData.hasAddressWarning()){
-            addressStatus.setText("!");
-            addressCircle.setColor(ContextCompat.getColor(this, R.color.address_warning));
+        if(firmDataInput == null){
+            setView(START);
+            showToast("Организация с таким ИНН не найдена!");
+            firmData = new FirmData();
+            addressStatus.setText(getString(R.string.anf_unknown_status_text));
+            addressCircle.setColor(ContextCompat.getColor(this, R.color.address_unknown));
         }
-        else {
-            addressStatus.setText("\u2714");
-            addressCircle.setColor(ContextCompat.getColor(this, R.color.address_ok));
+        else{
+            firmData = firmDataInput;
+            Log.d(LOG_TAG, firmData.toString());
+            setView(READY);
+            if(firmData.hasAddressWarning()){
+                addressStatus.setText("!");
+                addressCircle.setColor(ContextCompat.getColor(this, R.color.address_warning));
+            }
+            else {
+                addressStatus.setText("✔");
+                addressCircle.setColor(ContextCompat.getColor(this, R.color.address_ok));
+            }
         }
 
-        Log.d(LOG_TAG, firmData.toString());
+        shortName.setText(firmData.getValueDefault(FirmData.SHORT_NAME, "n/a"));
+        longName.setText(firmData.getValueDefault(FirmData.FULL_NAME, "n/a"));
+        ogrn.setText(firmData.getValueDefault(FirmData.OGRN, "n/a"));
+        ogrnDate.setText(firmData.getValueDefault(FirmData.DATE_OGRN, "n/a"));
+        inn.setText(firmData.getValueDefault(FirmData.INN, "n/a"));
+        kpp.setText(firmData.getValueDefault(FirmData.KPP, "n/a"));
+        chiefPosition.setText(firmData.getValueDefault(FirmData.CHIEF_POSITION, "Руководитель"));
+        chiefFullName.setText(firmData.getValueDefault(FirmData.CHIEF_FULLNAME, "n/a"));
+        address.setText(firmData.getValueDefault(FirmData.ADDRESS, "n/a"));
+        dateLastRecord.setText(firmData.getValueDefault(FirmData.DATE_LAST_RECORD,"n/a"));
+        textLastRecord.setText(firmData.getValueDefault(FirmData.TEXT_LAST_RECORD,"n/a"));
 
-        setView(READY);
+        if(firmData.isLiquidated()) {
+            layoutLiquidate.setVisibility(View.VISIBLE);
+            layoutLiquireason.setVisibility(View.VISIBLE);
+            dateLiquidation.setText(firmData.getValueDefault(FirmData.DATE_LIQUIDATION, "n/a"));
+            reasonLiquidation.setText(firmData.getValueDefault(FirmData.REASON_LIQUIDATION, "n/a"));
+        }
+        else{
+            layoutLiquidate.setVisibility(View.GONE);
+            layoutLiquireason.setVisibility(View.GONE);
+        }
+
     }
 
     private void setView(int state){

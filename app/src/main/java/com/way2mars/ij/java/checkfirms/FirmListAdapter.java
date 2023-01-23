@@ -37,9 +37,9 @@ public class FirmListAdapter extends ArrayAdapter<FirmData> {
             ((TextView) listItemView.findViewById(R.id.fld_item_inn)).
                     setText(currentFirm.getValueDefault(currentFirm.INN, NOVALUE));
             ((TextView) listItemView.findViewById(R.id.fld_item_last_date)).
-                    setText(currentFirm.getValueDefault(currentFirm.DATE_LAST_CHANGE, NOTEXT));
+                    setText(currentFirm.getValueDefault(currentFirm.DATE_LAST_RECORD, NOTEXT));
             ((TextView) listItemView.findViewById(R.id.fld_item_last_text)).
-                    setText(currentFirm.getValueDefault(currentFirm.TEXT_LAST_CHANGE, NOTEXT));
+                    setText(currentFirm.getValueDefault(currentFirm.TEXT_LAST_RECORD, NOTEXT));
             ((TextView) listItemView.findViewById(R.id.fld_item_liquidation_date)).
                     setText(currentFirm.getValueDefault(currentFirm.DATE_LIQUIDATION, NOTEXT));
             ((TextView) listItemView.findViewById(R.id.fld_item_liquidation_text)).
@@ -54,9 +54,9 @@ public class FirmListAdapter extends ArrayAdapter<FirmData> {
             ((TextView) listItemView.findViewById(R.id.fla_item_inn)).
                     setText(currentFirm.getValueDefault(currentFirm.INN, NOVALUE));
             ((TextView) listItemView.findViewById(R.id.fla_item_last_date)).
-                    setText(currentFirm.getValueDefault(currentFirm.DATE_LAST_CHANGE, NOTEXT));
+                    setText(currentFirm.getValueDefault(currentFirm.DATE_LAST_RECORD, NOTEXT));
             ((TextView) listItemView.findViewById(R.id.fla_item_last_text)).
-                    setText(currentFirm.getValueDefault(currentFirm.TEXT_LAST_CHANGE, NOTEXT));
+                    setText(currentFirm.getValueDefault(currentFirm.TEXT_LAST_RECORD, NOTEXT));
             imageButton = listItemView.findViewById(R.id.fla_item_button);
         }
 
