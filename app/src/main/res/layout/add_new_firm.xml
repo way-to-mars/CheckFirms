@@ -291,7 +291,7 @@
                 android:textSize="10dp"
                 android:maxLines="1"
                 android:layout_weight="0"
-                android:text="Адрес" />
+                android:text="\?" />
 
             </LinearLayout>
 
