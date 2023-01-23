@@ -1,5 +1,6 @@
 package com.way2mars.ij.java.checkfirms;
 
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 
 import android.util.Log;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
 import org.jetbrains.annotations.NotNull;
 
 
@@ -115,13 +118,35 @@ public class AddFirmActivity extends AppCompatActivity {
 
         TextView shortName = findViewById(R.id.anf_shortname);
         TextView longName = findViewById(R.id.anf_longname);
+        TextView ogrn = findViewById(R.id.anf_ogrn);
+        TextView ogrnDate = findViewById(R.id.anf_ogrn_date);
+        TextView inn = findViewById(R.id.anf_inn);
+        TextView kpp = findViewById(R.id.anf_kpp);
         TextView chiefPosition = findViewById(R.id.anf_chief_position);
         TextView chiefFullName = findViewById(R.id.anf_chief_fullname);
+        TextView addressStatus = findViewById(R.id.anf_address_status);
+        TextView address = findViewById(R.id.anf_address);
+
+        GradientDrawable addressCircle = (GradientDrawable) addressStatus.getBackground();
 
         shortName.setText(firmData.getValueDefault(firmData.SHORT_NAME, "n/a"));
         longName.setText(firmData.getValueDefault(firmData.FULL_NAME, "n/a"));
+        address.setText(firmData.getValueDefault(firmData.ADDRESS, "n/a"));
+        ogrn.setText(firmData.getValueDefault(firmData.OGRN, "n/a"));
+        ogrnDate.setText(firmData.getValueDefault(firmData.DATE_OGRN, "n/a"));
+        inn.setText(firmData.getValueDefault(firmData.INN, "n/a"));
+        kpp.setText(firmData.getValueDefault(firmData.KPP, "n/a"));
         chiefPosition.setText(firmData.getValueDefault(firmData.CHIEF_POSITION, "Руководитель"));
         chiefFullName.setText(firmData.getValueDefault(firmData.CHIEF_FULLNAME, "n/a"));
+
+        if(firmData.hasAddressWarning()){
+            addressStatus.setText("!");
+            addressCircle.setColor(ContextCompat.getColor(this, R.color.address_warning));
+        }
+        else {
+            addressStatus.setText("\u2714");
+            addressCircle.setColor(ContextCompat.getColor(this, R.color.address_ok));
+        }
 
         Log.d(LOG_TAG, firmData.toString());
 

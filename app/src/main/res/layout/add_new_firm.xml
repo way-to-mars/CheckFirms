@@ -90,7 +90,7 @@
               android:layout_weight="2"
               android:ellipsize="end"
               android:maxLines="2"
-              android:text="Short Name" />
+              android:text="@string/anf_short_name" />
 
             <TextView
               android:id="@+id/anf_shortname"
@@ -116,7 +116,7 @@
               android:layout_weight="2"
               android:ellipsize="end"
               android:maxLines="2"
-              android:text="Long Name" />
+              android:text="@string/anf_fullname" />
 
             <TextView
               android:id="@+id/anf_longname"
@@ -135,6 +135,110 @@
             android:orientation="horizontal">
 
             <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginEnd="10dp"
+              android:layout_marginBottom="10dp"
+              android:layout_weight="2"
+              android:ellipsize="end"
+              android:maxLines="2"
+              android:text="ОГРН" />
+
+            <TextView
+              android:id="@+id/anf_ogrn"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginBottom="10dp"
+              android:layout_weight="1"
+              android:ellipsize="end"
+              android:maxLines="2"
+              tools:text="12826453728" />
+          </LinearLayout>
+
+          <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginEnd="10dp"
+              android:layout_marginBottom="10dp"
+              android:layout_weight="2"
+              android:ellipsize="end"
+              android:maxLines="2"
+              android:text="Дата ОГРН" />
+
+            <TextView
+              android:id="@+id/anf_ogrn_date"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginBottom="10dp"
+              android:layout_weight="1"
+              android:ellipsize="end"
+              android:maxLines="2"
+              tools:text="01.01.2035" />
+          </LinearLayout>
+
+          <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginEnd="10dp"
+              android:layout_marginBottom="10dp"
+              android:layout_weight="2"
+              android:ellipsize="end"
+              android:maxLines="2"
+              android:text="ИНН" />
+
+            <TextView
+              android:id="@+id/anf_inn"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginBottom="10dp"
+              android:layout_weight="1"
+              android:ellipsize="end"
+              android:maxLines="2"
+              tools:text="2499001122" />
+          </LinearLayout>
+
+          <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginEnd="10dp"
+              android:layout_marginBottom="10dp"
+              android:layout_weight="2"
+              android:ellipsize="end"
+              android:maxLines="2"
+              android:text="КПП" />
+
+            <TextView
+              android:id="@+id/anf_kpp"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginBottom="10dp"
+              android:layout_weight="1"
+              android:ellipsize="end"
+              android:maxLines="2"
+              tools:text="249901001" />
+          </LinearLayout>
+
+          <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
               android:id="@+id/anf_chief_position"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
@@ -143,7 +247,7 @@
               android:layout_weight="2"
               android:ellipsize="end"
               android:maxLines="2"
-              android:text="Должность" />
+              android:text="Руководитель" />
 
             <TextView
               android:id="@+id/anf_chief_fullname"
@@ -152,8 +256,8 @@
               android:layout_marginBottom="10dp"
               android:layout_weight="1"
               android:ellipsize="end"
-              android:maxLines="2"
-              tools:text="James Brown Jr" />
+              android:maxLines="4"
+              android:text="Соколов Семен Игнатович" />
           </LinearLayout>
 
           <LinearLayout
@@ -161,124 +265,45 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:orientation="horizontal">
             <TextView
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:layout_marginEnd="10dp"
               android:layout_marginBottom="10dp"
-              android:layout_weight="2"
+                android:layout_weight="1"
               android:ellipsize="end"
               android:maxLines="2"
-              android:text="Given number" />
+              android:text="Адрес" />
+            <TextView
+                android:id="@+id/anf_address_status"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/address_circle"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="0dp"
+                android:gravity="center"
+                android:ellipsize="end"
+                android:textSize="10dp"
+                android:maxLines="1"
+                android:layout_weight="0"
+                android:text="Адрес" />
+
+            </LinearLayout>
 
             <TextView
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginBottom="10dp"
-              android:layout_weight="1"
-              android:ellipsize="end"
-              android:maxLines="2"
-              tools:text="3.1415926535" />
-          </LinearLayout>
-
-          <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginEnd="10dp"
-              android:layout_marginBottom="10dp"
-              android:layout_weight="2"
-              android:ellipsize="end"
-              android:maxLines="2"
-              android:text="Given number #2" />
-
-            <TextView
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginBottom="10dp"
-              android:layout_weight="1"
-              android:ellipsize="end"
-              android:maxLines="2"
-              tools:text="6.62607015" />
-          </LinearLayout>
-
-          <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginEnd="10dp"
-              android:layout_marginBottom="10dp"
-              android:layout_weight="2"
-              android:ellipsize="end"
-              android:maxLines="2"
-              android:text="Given name" />
-
-            <TextView
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginBottom="10dp"
-              android:layout_weight="1"
-              android:ellipsize="end"
-              android:maxLines="2"
-              tools:text="explanation text message" />
-          </LinearLayout>
-
-          <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginEnd="10dp"
-              android:layout_marginBottom="10dp"
-              android:layout_weight="2"
-              android:ellipsize="end"
-              android:maxLines="2"
-              android:text="Meaningless" />
-
-            <TextView
+              android:id="@+id/anf_address"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:layout_marginBottom="10dp"
               android:layout_weight="1"
               android:ellipsize="end"
               android:maxLines="4"
-              android:text="explanation text message. Just to fill the space.\n101\n404" />
-          </LinearLayout>
-
-          <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginEnd="10dp"
-              android:layout_marginBottom="10dp"
-              android:layout_weight="2"
-              android:ellipsize="end"
-              android:maxLines="2"
-              android:text="Meaningless" />
-
-            <TextView
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginBottom="10dp"
-              android:layout_weight="1"
-              android:ellipsize="end"
-              android:maxLines="4"
-              android:text="explanation text message. Just to fill the space.\n101\n404" />
+              android:text="улица Пушкина, дом Кукушкина, 8/16" />
           </LinearLayout>
 
           <LinearLayout
