@@ -22,8 +22,8 @@ public class FirmData implements Comparable<FirmData> {
     public final static String ADDRESS = "FD_ADDRESS";
     public final static String CHIEF_POSITION = "FD_CHIEF_POSITION";
     public final static String CHIEF_FULLNAME = "FD_CHIEF_FULLNAME";
-    public final static String TEXT_LAST_RECORD = "FD_TEXT_LAST_CHANGE";
-    public final static String DATE_LAST_RECORD = "FD_DATE_LAST_CHANGE";
+    public final static String TEXT_LAST_RECORD = "FD_TEXT_LAST_RECORD";
+    public final static String DATE_LAST_RECORD = "FD_DATE_LAST_RECORD";
     public final static String REASON_LIQUIDATION = "FD_REASON_LIQUIDATION";
     public final static String DATE_LIQUIDATION = "FD_DATE_LIQUIDATION";
     private final static String BOOL_ADDRESS_WARNING = "FD_BOOLEAN_ADDRESS_WARNING";
