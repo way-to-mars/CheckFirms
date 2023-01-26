@@ -1,4 +1,4 @@
-package com.way2mars.ij.java.checkfirms;
+package com.way2mars.ij.java.checkfirms.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -13,29 +13,29 @@ public class FirmStorage implements Parcelable {
     public int uid;
 
     @ColumnInfo(name = "INN")
-    public String mInn;
+    public String inn;
 
     @ColumnInfo(name = "SHORT_NAME")
-    public String mShortName;
+    public String shortName;
 
     @ColumnInfo(name = "DATE_LAST_RECORD")
-    public String mDateLastRecord;
+    public String dateLastRecord;
 
     @ColumnInfo(name = "TEXT_LAST_RECORD")
-    public String mTextLastRecord;
+    public String textLastRecord;
 
     @ColumnInfo(name = "DATE_LIQUIDATION")
-    public String mDateLiquidation;
+    public String dateLiquidation;
 
     @ColumnInfo(name = "REASON_LIQUIDATION")
-    public String mTextLiquidation;
+    public String textLiquidation;
 
     //TODO
     // last arbitral process
     @ColumnInfo(name = "DATE_LASTCOURT_ACTION")
-    public String mDateLastCourtAction;
+    public String dateLastCourtAction;
     @ColumnInfo(name = "NUMBER_LAST_COURT_ACTION")
-    public String mNumberLastCourtAction;
+    public String numberLastCourtAction;
 
 
     public FirmStorage(String inn, String shortName, String dateLastRecord, String textLastRecord, String dateLiquidation, String textLiquidation){
@@ -52,14 +52,14 @@ public class FirmStorage implements Parcelable {
 
     protected FirmStorage(Parcel in) {
         uid = in.readInt();
-        mInn = in.readString();
-        mShortName = in.readString();
-        mDateLastRecord = in.readString();
-        mTextLastRecord = in.readString();
-        mDateLiquidation = in.readString();
-        mTextLiquidation = in.readString();
-        mDateLastCourtAction = in.readString();
-        mNumberLastCourtAction = in.readString();
+        inn = in.readString();
+        shortName = in.readString();
+        dateLastRecord = in.readString();
+        textLastRecord = in.readString();
+        dateLiquidation = in.readString();
+        textLiquidation = in.readString();
+        dateLastCourtAction = in.readString();
+        numberLastCourtAction = in.readString();
     }
 
     public static final Creator<FirmStorage> CREATOR = new Creator<FirmStorage>() {
@@ -75,67 +75,67 @@ public class FirmStorage implements Parcelable {
     };
 
     public String getInn() {
-        return mInn;
+        return inn;
     }
 
     public void setInn(@Nullable String inn) {
-        this.mInn = (inn==null) ? "" : inn;
+        this.inn = (inn==null) ? "" : inn;
     }
 
     public String getShortName() {
-        return mShortName;
+        return shortName;
     }
 
     public void setShortName(@Nullable String shortName) {
-        this.mShortName = (shortName==null) ? "" : shortName;
+        this.shortName = (shortName==null) ? "" : shortName;
     }
 
     public String getDateLastRecord() {
-        return mDateLastRecord;
+        return dateLastRecord;
     }
 
     public void setDateLastRecord(@Nullable String dateLastRecord) {
-         this.mDateLastRecord = (dateLastRecord==null) ? "" : dateLastRecord;
+         this.dateLastRecord = (dateLastRecord==null) ? "" : dateLastRecord;
     }
 
     public String getTextLastRecord() {
-        return mTextLastRecord;
+        return textLastRecord;
     }
 
     public void setTextLastRecord(@Nullable String textLastRecord) {
-        this.mTextLastRecord = (textLastRecord==null) ? "" : textLastRecord;
+        this.textLastRecord = (textLastRecord==null) ? "" : textLastRecord;
     }
 
     public String getDateLiquidation() {
-        return mDateLiquidation;
+        return dateLiquidation;
     }
 
     public void setDateLiquidation(@Nullable String dateLiquidation) {
-        this.mDateLiquidation = (dateLiquidation==null) ? "" : dateLiquidation;
+        this.dateLiquidation = (dateLiquidation==null) ? "" : dateLiquidation;
     }
 
     public String getTextLiquidation() {
-        return mTextLiquidation;
+        return textLiquidation;
     }
 
     public void setTextLiquidation(@Nullable String textLiquidation) {
-        this.mTextLiquidation = (textLiquidation==null) ? "" : textLiquidation;
+        this.textLiquidation = (textLiquidation==null) ? "" : textLiquidation;
     }
 
     public String getDateLastCourtAction() {
-        return mDateLastCourtAction;
+        return dateLastCourtAction;
     }
 
     public void setDateLastCourtAction(@Nullable String dateLastCourtAction) {
-        this.mDateLastCourtAction = (dateLastCourtAction==null) ? "" : dateLastCourtAction;
+        this.dateLastCourtAction = (dateLastCourtAction==null) ? "" : dateLastCourtAction;
     }
 
     public String getNumberLastCourtAction() {
-        return mNumberLastCourtAction;
+        return numberLastCourtAction;
     }
 
     public void setNumberLastCourtAction(@Nullable String numberLastCourtAction) {
-        this.mNumberLastCourtAction = (numberLastCourtAction==null) ? "" : numberLastCourtAction;
+        this.numberLastCourtAction = (numberLastCourtAction==null) ? "" : numberLastCourtAction;
     }
 
     @Override
@@ -145,12 +145,12 @@ public class FirmStorage implements Parcelable {
 
         FirmStorage that = (FirmStorage) o;
 
-        return mInn.equals(that.mInn);
+        return inn.equals(that.inn);
     }
 
     @Override
     public int hashCode() {
-        return mInn.hashCode();
+        return inn.hashCode();
     }
 
     @Override
@@ -161,13 +161,13 @@ public class FirmStorage implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeInt(uid);
-        parcel.writeString(mInn);
-        parcel.writeString(mShortName);
-        parcel.writeString(mDateLastRecord);
-        parcel.writeString(mTextLastRecord);
-        parcel.writeString(mDateLiquidation);
-        parcel.writeString(mTextLiquidation);
-        parcel.writeString(mDateLastCourtAction);
-        parcel.writeString(mNumberLastCourtAction);
+        parcel.writeString(inn);
+        parcel.writeString(shortName);
+        parcel.writeString(dateLastRecord);
+        parcel.writeString(textLastRecord);
+        parcel.writeString(dateLiquidation);
+        parcel.writeString(textLiquidation);
+        parcel.writeString(dateLastCourtAction);
+        parcel.writeString(numberLastCourtAction);
     }
 }

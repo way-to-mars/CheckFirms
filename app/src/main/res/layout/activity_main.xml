@@ -9,5 +9,5 @@
         android:padding="10dp"
         android:divider="@android:color/transparent"
         android:dividerHeight="10dp"
-        tools:context=".MainActivity">
+        tools:context=".screen.MainActivity">
 </ListView>

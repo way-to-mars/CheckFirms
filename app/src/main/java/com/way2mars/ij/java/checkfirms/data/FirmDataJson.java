@@ -1,8 +1,9 @@
-package com.way2mars.ij.java.checkfirms;
+package com.way2mars.ij.java.checkfirms.data;
 
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import com.way2mars.ij.java.checkfirms.model.FirmData;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

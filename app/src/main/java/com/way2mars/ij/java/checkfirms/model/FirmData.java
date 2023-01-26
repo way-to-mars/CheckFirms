@@ -1,4 +1,4 @@
-package com.way2mars.ij.java.checkfirms;
+package com.way2mars.ij.java.checkfirms.model;
 
 import android.util.Log;
 import androidx.annotation.Nullable;
