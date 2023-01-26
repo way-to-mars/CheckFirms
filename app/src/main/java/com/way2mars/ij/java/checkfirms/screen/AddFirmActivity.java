@@ -1,4 +1,4 @@
-package com.way2mars.ij.java.checkfirms;
+package com.way2mars.ij.java.checkfirms.screen;
 
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
@@ -15,6 +15,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.way2mars.ij.java.checkfirms.data.QueryUtils;
+import com.way2mars.ij.java.checkfirms.R;
+import com.way2mars.ij.java.checkfirms.model.FirmData;
 import org.jetbrains.annotations.NotNull;
 
 

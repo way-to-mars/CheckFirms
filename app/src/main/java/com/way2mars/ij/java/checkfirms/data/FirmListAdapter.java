@@ -1,4 +1,4 @@
-package com.way2mars.ij.java.checkfirms;
+package com.way2mars.ij.java.checkfirms.data;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import com.way2mars.ij.java.checkfirms.R;
+import com.way2mars.ij.java.checkfirms.model.FirmData;
 
 import java.util.List;
 

@@ -1,7 +1,8 @@
-package com.way2mars.ij.java.checkfirms;
+package com.way2mars.ij.java.checkfirms.data;
 
 import android.util.Log;
 import androidx.annotation.Nullable;
+import com.way2mars.ij.java.checkfirms.model.FirmData;
 
 import java.io.BufferedReader;
 import java.io.IOException;

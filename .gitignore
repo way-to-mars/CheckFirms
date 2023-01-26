@@ -13,3 +13,5 @@
 .externalNativeBuild
 .cxx
 local.properties
+/app/src/test/java/com/way2mars/ij/java/checkfirms/ExampleUnitTest.java
+/app/src/androidTest/java/com/way2mars/ij/java/checkfirms/ExampleInstrumentedTest.java

@@ -1,4 +1,6 @@
-package com.way2mars.ij.java.checkfirms;
+package com.way2mars.ij.java.checkfirms.data;
+
+import com.way2mars.ij.java.checkfirms.model.FirmData;
 
 import java.util.Comparator;
 

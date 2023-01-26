@@ -1,4 +1,4 @@
-package com.way2mars.ij.java.checkfirms;
+package com.way2mars.ij.java.checkfirms.screen;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,10 +12,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.Toast;
+import com.way2mars.ij.java.checkfirms.data.QueryUtils;
+import com.way2mars.ij.java.checkfirms.R;
+import com.way2mars.ij.java.checkfirms.model.FirmData;
+import com.way2mars.ij.java.checkfirms.data.FirmListAdapter;
 
 import java.util.ArrayList;
-
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
