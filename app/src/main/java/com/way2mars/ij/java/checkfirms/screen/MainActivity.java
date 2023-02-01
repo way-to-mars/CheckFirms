@@ -4,11 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import android.widget.LinearLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.way2mars.ij.java.checkfirms.data.QueryUtils;
 import com.way2mars.ij.java.checkfirms.R;
@@ -24,6 +27,8 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     final String LOG_TAG = "MainActivity LOG";
+
+    private RecyclerView recyclerView;
 
     Toast mainToast=null;
     ArrayList<FirmData> mainArray=null;
@@ -77,13 +82,17 @@ public class MainActivity extends AppCompatActivity {
          //   setContentView(R.layout.activity_main);
 
 //        setSupportActionBar(binding.toolbar);
-            Toolbar toolbar = findViewById(R.id.toolbar);
-            setSupportActionBar(toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        recyclerView = findViewById(R.id.main_list);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
 
 //        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
 //        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
 //        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-            FloatingActionButton fab = findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
 
 //        binding.fab.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -92,10 +101,9 @@ public class MainActivity extends AppCompatActivity {
 //                        .setAction("Action", null).show();
 //            }
 //        });
-
-            fab.setOnClickListener(view -> {
+        fab.setOnClickListener(view -> {
                 Log.d("main", "fab");
-            });
+        });
     }
 
     private void showToast(Context context, CharSequence text, int duration){

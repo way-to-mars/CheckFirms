@@ -1,28 +1,36 @@
 package com.way2mars.ij.java.checkfirms.screen;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.ScrollView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
+import com.way2mars.ij.java.checkfirms.App;
 import com.way2mars.ij.java.checkfirms.data.QueryUtils;
 import com.way2mars.ij.java.checkfirms.R;
 import com.way2mars.ij.java.checkfirms.model.FirmData;
+import com.way2mars.ij.java.checkfirms.model.FirmStorage;
 import org.jetbrains.annotations.NotNull;
 
 
 public class AddFirmActivity extends AppCompatActivity {
     private static final String LOG_TAG = AddFirmActivity.class.getSimpleName();
+    private static final String EXTRA_FIRM_STORAGE = "AddFirmActivity.EXTRA_FIRM_STORAGE";
 
     private final static String urlPart1 = "https://egrul.itsoft.ru/";
     private final static String urlPart2 = ".json";
@@ -38,6 +46,8 @@ public class AddFirmActivity extends AppCompatActivity {
 
     private Toast localToast=null;
 
+    private FirmStorage firmStorage;
+    private FirmData loadedFirmData;
 
     private void showToast(String string){
         if(string == null) return;
@@ -47,17 +57,65 @@ public class AddFirmActivity extends AppCompatActivity {
         localToast.show();
     }
 
+    public static void start(Activity caller, FirmStorage firmStorage)
+    {
+        Intent intent = new Intent(caller, AddFirmActivity.class);
+        if(firmStorage!=null){
+            intent.putExtra(EXTRA_FIRM_STORAGE, firmStorage);
+        }
+        caller.startActivity(intent);
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_new_firm);
 
+        Toolbar toolbar = findViewById(R.id.toolbar2);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        setTitle(getString(R.string.activity_add_title));
+
         EditText editText = findViewById(R.id.anf_edittext_inn);
         Button buttonSearch = findViewById(R.id.anf_search_button);
         buttonSearch.setOnClickListener(view -> loadFirm(editText.getText().toString()));
+        Button buttonApply = findViewById(R.id.anf_apply_button);
+        buttonApply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                applyFirm();
+                if (getIntent().hasExtra(EXTRA_FIRM_STORAGE))
+                {
+                    App.getInstance().getFirmStorageDao().update(firmStorage);
+                }
+                else{
+                    App.getInstance().getFirmStorageDao().insert(firmStorage);
+                }
+                finish();
+            }
+        });
 
         setView(START);
 
+        if (getIntent().hasExtra(EXTRA_FIRM_STORAGE)){
+            this.firmStorage = getIntent().getParcelableExtra(EXTRA_FIRM_STORAGE);
+            editText.setText(firmStorage.inn);
+        }
+        else {
+            firmStorage = null;
+        }
+        this.loadedFirmData = null;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     // the length of INN must be 10 or 12
@@ -112,8 +170,22 @@ public class AddFirmActivity extends AppCompatActivity {
         webThread.start();
     }
 
+    private void applyFirm(){
+        // String inn, String shortName, String dateLastRecord, String textLastRecord, String dateLiquidation, String textLiquidation
+        this.firmStorage = new FirmStorage(
+                loadedFirmData.getValue(FirmData.INN),
+                loadedFirmData.getValue(FirmData.SHORT_NAME),
+                loadedFirmData.getValue(FirmData.DATE_LAST_RECORD),
+                loadedFirmData.getValue(FirmData.TEXT_LAST_RECORD),
+                loadedFirmData.getValue(FirmData.DATE_LIQUIDATION),
+                loadedFirmData.getValue(FirmData.REASON_LIQUIDATION)
+        );
+
+    }
+
     private void displayNewFirm(final FirmData firmDataInput){
         FirmData firmData;
+        this.loadedFirmData = firmDataInput;
 
         TextView shortName = findViewById(R.id.anf_shortname);
         TextView longName = findViewById(R.id.anf_longname);

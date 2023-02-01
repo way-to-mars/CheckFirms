@@ -31,7 +31,8 @@
               android:name="android.app.lib_name"
               android:value=""/>
     </activity>
-    <activity android:name="com.way2mars.ij.java.checkfirms.screen.AddFirmActivity" />
+    <activity android:name="com.way2mars.ij.java.checkfirms.screen.AddFirmActivity"
+      android:theme="@style/Theme.CheckFirms.NoActionBar"/>
   </application>
 
 </manifest>
