@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  app:cardCornerRadius="20dp"
+  android:layout_margin="20dp">
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="10dp"
+      android:textSize="@dimen/item_fontsize_header"
+      android:textStyle="bold"
+      tools:text="OOO ASTRA" />
+
+    <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="10dp"
+      android:textSize="@dimen/item_fontsize_header"
+      android:textStyle="normal"
+      tools:text="ИНН 2203001154"/>
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:layout_marginBottom="@dimen/item_marginbottom2">
+      <ImageView
+        android:layout_width="@dimen/item_alertsize"
+        android:layout_height="@dimen/item_alertsize"
+        android:layout_marginEnd="10dp"
+        android:src="@android:drawable/ic_dialog_alert"
+        app:tint="@android:color/holo_orange_light"
+        android:layout_gravity="center_vertical"/>
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="Недостоверность адреса"
+        android:layout_gravity="center_vertical"
+        android:minHeight="@dimen/item_alertsize"/>
+    </LinearLayout>
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:layout_marginBottom="@dimen/item_marginbottom2">
+      <ImageView
+        android:layout_width="@dimen/item_alertsize"
+        android:layout_height="@dimen/item_alertsize"
+        android:layout_marginEnd="10dp"
+        android:src="@android:drawable/ic_dialog_alert"
+        app:tint="@android:color/holo_orange_light"
+        android:layout_gravity="center_vertical"/>
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="Ликвидировано"
+        android:layout_gravity="center_vertical"
+        android:minHeight="@dimen/item_alertsize"/>
+    </LinearLayout>
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal">
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        tools:text="Посл.зап. в ЕГРЮЛ"/>
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="01-01-2020"
+        android:gravity="bottom" />
+    </LinearLayout>
+    <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="10dp"
+      android:textSize="12sp"
+      android:textStyle="italic"
+      android:maxLines="1"
+      android:ellipsize="end"
+      tools:text="Внесена запись об очень важном изменении. Просьба обратить внимание на сонечный свет."/>
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal">
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        tools:text="Посл.зап. в арбитраже"/>
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="01-01-2020"
+        android:gravity="bottom" />
+    </LinearLayout>
+    <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textSize="12sp"
+      android:textStyle="italic"
+      android:ellipsize="end"
+      android:maxLines="1"
+      tools:text="И как говорил классик: ПОСУДИМСЯ..."/>
+
+  </LinearLayout>
+
+</androidx.cardview.widget.CardView>

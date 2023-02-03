@@ -171,14 +171,15 @@ public class AddFirmActivity extends AppCompatActivity {
     }
 
     private void applyFirm(){
-        // String inn, String shortName, String dateLastRecord, String textLastRecord, String dateLiquidation, String textLiquidation
+        // String inn, String shortName, String dateLastRecord, String textLastRecord, String dateLiquidation, String textLiquidation, Boolean addressWarning
         this.firmStorage = new FirmStorage(
                 loadedFirmData.getValue(FirmData.INN),
                 loadedFirmData.getValue(FirmData.SHORT_NAME),
                 loadedFirmData.getValue(FirmData.DATE_LAST_RECORD),
                 loadedFirmData.getValue(FirmData.TEXT_LAST_RECORD),
                 loadedFirmData.getValue(FirmData.DATE_LIQUIDATION),
-                loadedFirmData.getValue(FirmData.REASON_LIQUIDATION)
+                loadedFirmData.getValue(FirmData.REASON_LIQUIDATION),
+                loadedFirmData.hasAddressWarning()
         );
 
     }

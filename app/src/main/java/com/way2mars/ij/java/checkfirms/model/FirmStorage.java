@@ -30,6 +30,9 @@ public class FirmStorage implements Parcelable {
     @ColumnInfo(name = "REASON_LIQUIDATION")
     public String textLiquidation;
 
+    @ColumnInfo(name = "BOOLEAN_ADDRESS_WARNING")
+    public Boolean addressWarning;
+
     //TODO
     // last arbitral process
     @ColumnInfo(name = "DATE_LASTCOURT_ACTION")
@@ -38,13 +41,14 @@ public class FirmStorage implements Parcelable {
     public String numberLastCourtAction;
 
 
-    public FirmStorage(String inn, String shortName, String dateLastRecord, String textLastRecord, String dateLiquidation, String textLiquidation){
+    public FirmStorage(String inn, String shortName, String dateLastRecord, String textLastRecord, String dateLiquidation, String textLiquidation, Boolean addressWarning){
         this.setInn(inn);
         this.setShortName(shortName);
         this.setDateLastRecord(dateLastRecord);
         this.setTextLastRecord(textLastRecord);
         this.setDateLiquidation(dateLiquidation);
         this.setTextLiquidation(textLiquidation);
+        this.setAddressWarning(addressWarning);
 
         this.setDateLastCourtAction("03.07.2100");
         this.setNumberLastCourtAction("А77-12345/2100");
@@ -58,6 +62,7 @@ public class FirmStorage implements Parcelable {
         textLastRecord = in.readString();
         dateLiquidation = in.readString();
         textLiquidation = in.readString();
+        addressWarning = in.readInt()==1;
         dateLastCourtAction = in.readString();
         numberLastCourtAction = in.readString();
     }
@@ -122,6 +127,10 @@ public class FirmStorage implements Parcelable {
         this.textLiquidation = (textLiquidation==null) ? "" : textLiquidation;
     }
 
+    public void setAddressWarning(Boolean key){this.addressWarning=key;}
+
+    public Boolean getAddressWarning(){ return addressWarning; }
+
     public String getDateLastCourtAction() {
         return dateLastCourtAction;
     }
@@ -167,6 +176,7 @@ public class FirmStorage implements Parcelable {
         parcel.writeString(textLastRecord);
         parcel.writeString(dateLiquidation);
         parcel.writeString(textLiquidation);
+        parcel.writeInt(addressWarning ? 1 : 0);
         parcel.writeString(dateLastCourtAction);
         parcel.writeString(numberLastCourtAction);
     }
