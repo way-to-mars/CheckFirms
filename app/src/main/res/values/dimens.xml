@@ -1,6 +1,10 @@
 <resources>
   <dimen name="fab_margin">16dp</dimen>
-  <dimen name="item_fontsize_header">20sp</dimen>
+  <dimen name="item_fontsize_header">22sp</dimen>
+  <dimen name="item_fontsize_header2">17sp</dimen>
+  <dimen name="item_fontsize_header3">14sp</dimen>
+  <dimen name="item_fontsize_text">12sp</dimen>
   <dimen name="item_alertsize">16dp</dimen>
+  <dimen name="item_marginbottom1">10dp</dimen>
   <dimen name="item_marginbottom2">6dp</dimen>
 </resources>

@@ -14,37 +14,68 @@
     android:padding="20dp">
 
     <TextView
+      android:id="@+id/item_name"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginBottom="10dp"
+      android:layout_marginBottom="@dimen/item_marginbottom1"
       android:textSize="@dimen/item_fontsize_header"
       android:textStyle="bold"
+      android:shadowDx="2"
+      android:shadowDy="5"
+      android:shadowColor="#BBCCDD"
+      android:shadowRadius="5"
       tools:text="OOO ASTRA" />
 
     <TextView
+      android:id="@+id/item_inn"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginBottom="10dp"
-      android:textSize="@dimen/item_fontsize_header"
+      android:layout_marginBottom="@dimen/item_marginbottom1"
+      android:textSize="@dimen/item_fontsize_header2"
       android:textStyle="normal"
       tools:text="ИНН 2203001154"/>
 
     <LinearLayout
+      android:id="@+id/item_liquidated"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="horizontal"
-      android:layout_marginBottom="@dimen/item_marginbottom2">
+      android:layout_marginBottom="@dimen/item_marginbottom1">
       <ImageView
         android:layout_width="@dimen/item_alertsize"
         android:layout_height="@dimen/item_alertsize"
         android:layout_marginEnd="10dp"
         android:src="@android:drawable/ic_dialog_alert"
         app:tint="@android:color/holo_orange_light"
-        android:layout_gravity="center_vertical"/>
+        android:layout_gravity="center_vertical"
+        android:contentDescription="!" />
       <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text="Недостоверность адреса"
+        android:textSize="@dimen/item_fontsize_header3"
+        android:layout_gravity="center_vertical"
+        android:minHeight="@dimen/item_alertsize"/>
+    </LinearLayout>
+    <LinearLayout
+      android:id="@+id/item_address_warning"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:layout_marginBottom="@dimen/item_marginbottom1">
+      <ImageView
+        android:layout_width="@dimen/item_alertsize"
+        android:layout_height="@dimen/item_alertsize"
+        android:layout_marginEnd="10dp"
+        android:src="@android:drawable/ic_dialog_alert"
+        app:tint="@android:color/holo_orange_light"
+        android:layout_gravity="center_vertical"
+        android:contentDescription="!" />
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="Ликвидировано"
+        android:textSize="@dimen/item_fontsize_header3"
         android:layout_gravity="center_vertical"
         android:minHeight="@dimen/item_alertsize"/>
     </LinearLayout>
@@ -52,41 +83,27 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="horizontal"
-      android:layout_marginBottom="@dimen/item_marginbottom2">
-      <ImageView
-        android:layout_width="@dimen/item_alertsize"
-        android:layout_height="@dimen/item_alertsize"
-        android:layout_marginEnd="10dp"
-        android:src="@android:drawable/ic_dialog_alert"
-        app:tint="@android:color/holo_orange_light"
-        android:layout_gravity="center_vertical"/>
-      <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:text="Ликвидировано"
-        android:layout_gravity="center_vertical"
-        android:minHeight="@dimen/item_alertsize"/>
-    </LinearLayout>
-    <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal">
+      android:layout_marginBottom="0dp">
       <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
-        tools:text="Посл.зап. в ЕГРЮЛ"/>
+        tools:text="Посл.зап. в ЕГРЮЛ"
+        android:textSize="@dimen/item_fontsize_header3"/>
       <TextView
+        android:id="@+id/item_date_egrul"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text="01-01-2020"
+        android:textSize="@dimen/item_fontsize_header3"
         android:gravity="bottom" />
     </LinearLayout>
     <TextView
+      android:id="@+id/item_text_egrul"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginBottom="10dp"
-      android:textSize="12sp"
+      android:layout_marginBottom="@dimen/item_marginbottom1"
+      android:textSize="@dimen/item_fontsize_text"
       android:textStyle="italic"
       android:maxLines="1"
       android:ellipsize="end"
@@ -94,26 +111,31 @@
     <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:orientation="horizontal">
+      android:orientation="horizontal"
+      android:layout_marginBottom="0dp">
       <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
+        android:textSize="@dimen/item_fontsize_header3"
         tools:text="Посл.зап. в арбитраже"/>
       <TextView
+        android:id="@+id/item_date_court"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="@dimen/item_fontsize_header3"
         tools:text="01-01-2020"
         android:gravity="bottom" />
     </LinearLayout>
     <TextView
+      android:id="@+id/item_text_court"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:textSize="12sp"
+      android:textSize="@dimen/item_fontsize_text"
       android:textStyle="italic"
       android:ellipsize="end"
       android:maxLines="1"
-      tools:text="И как говорил классик: ПОСУДИМСЯ..."/>
+      tools:text="И как говорил классик: посудимся. "/>
 
   </LinearLayout>
 

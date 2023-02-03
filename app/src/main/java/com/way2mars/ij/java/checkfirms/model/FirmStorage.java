@@ -35,13 +35,14 @@ public class FirmStorage implements Parcelable {
 
     //TODO
     // last arbitral process
-    @ColumnInfo(name = "DATE_LASTCOURT_ACTION")
+    @ColumnInfo(name = "DATE_LAST_COURT_ACTION")
     public String dateLastCourtAction;
     @ColumnInfo(name = "NUMBER_LAST_COURT_ACTION")
     public String numberLastCourtAction;
 
 
-    public FirmStorage(String inn, String shortName, String dateLastRecord, String textLastRecord, String dateLiquidation, String textLiquidation, Boolean addressWarning){
+    public FirmStorage(String inn, String shortName, String dateLastRecord, String textLastRecord,
+                       String dateLiquidation, String textLiquidation, Boolean addressWarning){
         this.setInn(inn);
         this.setShortName(shortName);
         this.setDateLastRecord(dateLastRecord);
@@ -62,7 +63,7 @@ public class FirmStorage implements Parcelable {
         textLastRecord = in.readString();
         dateLiquidation = in.readString();
         textLiquidation = in.readString();
-        addressWarning = in.readInt()==1;
+        addressWarning = in.readInt()==1;  // cast Integer to Boolean
         dateLastCourtAction = in.readString();
         numberLastCourtAction = in.readString();
     }
@@ -176,7 +177,7 @@ public class FirmStorage implements Parcelable {
         parcel.writeString(textLastRecord);
         parcel.writeString(dateLiquidation);
         parcel.writeString(textLiquidation);
-        parcel.writeInt(addressWarning ? 1 : 0);
+        parcel.writeInt(addressWarning ? 1 : 0); // cast Boolean to Integer
         parcel.writeString(dateLastCourtAction);
         parcel.writeString(numberLastCourtAction);
     }
