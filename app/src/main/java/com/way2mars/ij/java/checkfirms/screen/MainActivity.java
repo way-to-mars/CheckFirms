@@ -1,9 +1,11 @@
 package com.way2mars.ij.java.checkfirms.screen;
 
+import android.bluetooth.le.AdvertisingSetParameters;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import android.widget.LinearLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -16,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.way2mars.ij.java.checkfirms.data.QueryUtils;
 import com.way2mars.ij.java.checkfirms.R;
+//import com.way2mars.ij.java.checkfirms.databinding.ActivityMainBinding;
 import com.way2mars.ij.java.checkfirms.model.FirmData;
 import com.way2mars.ij.java.checkfirms.data.FirmListAdapter;
 
@@ -127,10 +130,14 @@ public class MainActivity extends AppCompatActivity {
         this.mainToast.show();
     }
 
-//    public void addItem(){
-//        Intent intent = new Intent(MainActivity.this, AddFirmActivity.class);
-//        startActivity(intent);
-//    }
+    public void addItem(){
+//        String name = "ООО " + this.faker.funnyName().name();
+//        this.mainArray.add(0, new FirmData(name, "new inn", "2022-09-15" , "new text"));
+//        this.mainAdapter.notifyDataSetChanged();
+
+        Intent intent = new Intent(MainActivity.this, AddFirmActivity.class);
+        startActivity(intent);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

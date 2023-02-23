@@ -1,24 +1,16 @@
 package com.way2mars.ij.java.checkfirms.screen;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import androidx.recyclerview.widget.SortedList;
 import com.google.android.material.snackbar.Snackbar;
-import com.way2mars.ij.java.checkfirms.App;
 import com.way2mars.ij.java.checkfirms.R;
 import com.way2mars.ij.java.checkfirms.model.FirmData;
 import com.way2mars.ij.java.checkfirms.model.FirmStorage;
@@ -44,12 +36,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.FirmViewHolder> {
 
         FirmStorage firmStorage;
 
-        // Идентификатор уведомления
-        private static final int NOTIFY_ID = 101;
-        // Идентификатор канала
-        private static String CHANNEL_ID = "Cat_channel";
-
-        @SuppressLint("MissingPermission")
         public FirmViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -63,29 +49,10 @@ public class Adapter extends RecyclerView.Adapter<Adapter.FirmViewHolder> {
             textCourt = itemView.findViewById(R.id.item_text_court);
 
             itemView.setOnClickListener(new View.OnClickListener() {
-
                 @Override
                 public void onClick(View v) {
-//                    Snackbar.make(itemView,"Нажатие на итем", Snackbar.LENGTH_LONG);
-//                    AddFirmActivity.start((Activity) itemView.getContext(), firmStorage);
-                    NotificationCompat.Builder builder =
-                            new NotificationCompat.Builder(App.getInstance(), CHANNEL_ID)
-                                    .setSmallIcon(R.drawable.ic_launcher_foreground)
-                                    .setContentTitle("Напоминание")
-                                    .setContentText("Пора покормить кота")
-                                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-
-                    NotificationManagerCompat notificationManager =
-                            NotificationManagerCompat.from(App.getInstance());
-
-                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                        NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID,"check_firms", NotificationManager.IMPORTANCE_DEFAULT);
-                        mChannel.setDescription("description");
-                        mChannel.enableLights(true);
-                        mChannel.enableVibration(true);
-                        notificationManager.createNotificationChannel(mChannel);
-                    }
-                    notificationManager.notify(NOTIFY_ID, builder.build());
+                    Snackbar.make(itemView,"Нажатие на итем", Snackbar.LENGTH_LONG);
+                    AddFirmActivity.start((Activity) itemView.getContext(), firmStorage);
                 }
             });
         }
