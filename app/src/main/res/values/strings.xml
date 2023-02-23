@@ -21,4 +21,8 @@
   <string name="anf_ogrn">ОГРН</string>
   <string name="action_settings">Настройки</string>
   <string name="activity_add_title">Add++</string>
+  <string name="item_addresswarning">Недостоверность адреса</string>
+  <string name="item_liquidated">Ликвидировано</string>
+  <string name="item_last_egrul_record">Посл.зап. в ЕГРЮЛ</string>
+  <string name="item_last_court_record">Посл.зап. в арбитраже</string>
 </resources>

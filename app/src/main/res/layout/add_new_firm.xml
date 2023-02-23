@@ -130,7 +130,7 @@
               android:layout_marginBottom="10dp"
               android:layout_weight="1"
               android:ellipsize="end"
-              android:maxLines="3"
+              android:maxLines="6"
               tools:text="This name is as long as the longest name in the whole World that the mankind has ever seen in its History" />
           </LinearLayout>
 
@@ -309,7 +309,7 @@
               android:layout_marginBottom="10dp"
               android:layout_weight="1"
               android:ellipsize="end"
-              android:maxLines="4"
+              android:maxLines="6"
               tools:text="улица Пушкина, дом Кукушкина, 8/16" />
           </LinearLayout>
 
@@ -363,7 +363,7 @@
               android:layout_marginBottom="10dp"
               android:layout_weight="1"
               android:ellipsize="end"
-              android:maxLines="4"
+              android:maxLines="6"
               tools:text="Так было нужно" />
           </LinearLayout>
 
@@ -415,7 +415,7 @@
               android:layout_marginBottom="10dp"
               android:layout_weight="1"
               android:ellipsize="end"
-              android:maxLines="4"
+              android:maxLines="6"
               tools:text="внесена запись о безвременном изменении краткосрочного послестрочия" />
           </LinearLayout>
         </LinearLayout>

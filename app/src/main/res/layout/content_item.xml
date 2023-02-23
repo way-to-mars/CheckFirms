@@ -5,13 +5,14 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   app:cardCornerRadius="20dp"
-  android:layout_margin="20dp">
+  android:layout_marginHorizontal="15dp"
+  android:layout_marginVertical="10dp">
 
   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="20dp">
+    android:padding="15dp">
 
     <TextView
       android:id="@+id/item_name"
@@ -36,28 +37,6 @@
       tools:text="ИНН 2203001154"/>
 
     <LinearLayout
-      android:id="@+id/item_liquidated"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal"
-      android:layout_marginBottom="@dimen/item_marginbottom1">
-      <ImageView
-        android:layout_width="@dimen/item_alertsize"
-        android:layout_height="@dimen/item_alertsize"
-        android:layout_marginEnd="10dp"
-        android:src="@android:drawable/ic_dialog_alert"
-        app:tint="@android:color/holo_orange_light"
-        android:layout_gravity="center_vertical"
-        android:contentDescription="!" />
-      <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:text="Недостоверность адреса"
-        android:textSize="@dimen/item_fontsize_header3"
-        android:layout_gravity="center_vertical"
-        android:minHeight="@dimen/item_alertsize"/>
-    </LinearLayout>
-    <LinearLayout
       android:id="@+id/item_address_warning"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -74,7 +53,29 @@
       <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="Ликвидировано"
+        android:text="@string/item_addresswarning"
+        android:textSize="@dimen/item_fontsize_header3"
+        android:layout_gravity="center_vertical"
+        android:minHeight="@dimen/item_alertsize"/>
+    </LinearLayout>
+    <LinearLayout
+      android:id="@+id/item_liquidated"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:layout_marginBottom="@dimen/item_marginbottom1">
+      <ImageView
+        android:layout_width="@dimen/item_alertsize"
+        android:layout_height="@dimen/item_alertsize"
+        android:layout_marginEnd="10dp"
+        android:src="@android:drawable/ic_dialog_alert"
+        app:tint="@android:color/holo_orange_light"
+        android:layout_gravity="center_vertical"
+        android:contentDescription="!" />
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/item_liquidated"
         android:textSize="@dimen/item_fontsize_header3"
         android:layout_gravity="center_vertical"
         android:minHeight="@dimen/item_alertsize"/>
@@ -88,13 +89,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
-        tools:text="Посл.зап. в ЕГРЮЛ"
+        android:text="@string/item_last_egrul_record"
         android:textSize="@dimen/item_fontsize_header3"/>
       <TextView
         android:id="@+id/item_date_egrul"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text="01-01-2020"
+        android:textStyle="bold"
         android:textSize="@dimen/item_fontsize_header3"
         android:gravity="bottom" />
     </LinearLayout>
@@ -118,12 +120,13 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
         android:textSize="@dimen/item_fontsize_header3"
-        tools:text="Посл.зап. в арбитраже"/>
+        android:text="@string/item_last_court_record"/>
       <TextView
         android:id="@+id/item_date_court"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="@dimen/item_fontsize_header3"
+        android:textStyle="bold"
         tools:text="01-01-2020"
         android:gravity="bottom" />
     </LinearLayout>

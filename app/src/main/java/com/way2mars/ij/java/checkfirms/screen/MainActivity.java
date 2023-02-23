@@ -1,5 +1,6 @@
 package com.way2mars.ij.java.checkfirms.screen;
 
+import android.bluetooth.le.AdvertisingSetParameters;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -10,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -21,8 +24,10 @@ import com.way2mars.ij.java.checkfirms.data.FirmListAdapter;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import com.way2mars.ij.java.checkfirms.model.FirmStorage;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -89,6 +94,9 @@ public class MainActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
+        Adapter adapter = new Adapter();
+        recyclerView.setAdapter(adapter);
+
 //        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
 //        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
 //        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
@@ -102,7 +110,17 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
         fab.setOnClickListener(view -> {
+            AddFirmActivity.start(this, null);
                 Log.d("main", "fab");
+        });
+
+       // MainViewModel mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+        MainViewModel mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
+        mainViewModel.getFirmStorageLiveData().observe(this, new Observer<List<FirmStorage>>() {
+            @Override
+            public void onChanged(List<FirmStorage> firmStorages) {
+                adapter.setItem(firmStorages);
+            }
         });
     }
 

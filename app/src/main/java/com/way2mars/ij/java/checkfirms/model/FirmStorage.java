@@ -51,7 +51,7 @@ public class FirmStorage implements Parcelable {
         this.setTextLiquidation(textLiquidation);
         this.setAddressWarning(addressWarning);
 
-        this.setDateLastCourtAction("03.07.2100");
+        this.setDateLastCourtAction("1993-08-01");
         this.setNumberLastCourtAction("А77-12345/2100");
     }
 
@@ -101,7 +101,7 @@ public class FirmStorage implements Parcelable {
     }
 
     public void setDateLastRecord(@Nullable String dateLastRecord) {
-         this.dateLastRecord = (dateLastRecord==null) ? "" : dateLastRecord;
+        this.dateLastRecord = (dateLastRecord==null) ? "" : dateLastRecord;
     }
 
     public String getTextLastRecord() {
