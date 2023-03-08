@@ -42,7 +42,7 @@ public class AddFirmActivity extends AppCompatActivity {
     public static final int START = 1;
     public static final int SEARCHING = 2;
     public static final int READY = 3;
-    private boolean start_passed = false;
+   // private boolean start_passed = false;
 
     private Toast localToast=null;
 

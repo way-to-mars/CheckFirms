@@ -3,7 +3,7 @@ package com.way2mars.ij.java.checkfirms.data;
 import androidx.lifecycle.LiveData;
 import androidx.room.*;
 import com.way2mars.ij.java.checkfirms.model.FirmStorage;
-import io.reactivex.Completable;
+//import io.reactivex.Completable;
 
 import java.util.List;
 

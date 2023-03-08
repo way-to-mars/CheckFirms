@@ -111,14 +111,14 @@ public class Adapter extends RecyclerView.Adapter<Adapter.FirmViewHolder> {
             }
 
             // each param can be a void String ""
-            String max(@NonNull String str1,@NotNull String str2)
-            {
-                if(str1.length()==0) return str2;
-                if(str2.length()==0) return str1;
-
-                if(str1.compareTo(str2)>0) return str1;
-                else return str2;
-            }
+//            String max(@NonNull String str1,@NotNull String str2)
+//            {
+//                if(str1.length()==0) return str2;
+//                if(str2.length()==0) return str1;
+//
+//                if(str1.compareTo(str2)>0) return str1;
+//                else return str2;
+//            }
         });
 
     }
