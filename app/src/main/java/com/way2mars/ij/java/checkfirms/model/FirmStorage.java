@@ -33,13 +33,6 @@ public class FirmStorage implements Parcelable {
     @ColumnInfo(name = "BOOLEAN_ADDRESS_WARNING")
     public Boolean addressWarning;
 
-    //TODO
-    // last arbitral process
-    @ColumnInfo(name = "DATE_LAST_COURT_ACTION")
-    public String dateLastCourtAction;
-    @ColumnInfo(name = "NUMBER_LAST_COURT_ACTION")
-    public String numberLastCourtAction;
-
 
     public FirmStorage(String inn, String shortName, String dateLastRecord, String textLastRecord,
                        String dateLiquidation, String textLiquidation, Boolean addressWarning){
@@ -50,9 +43,6 @@ public class FirmStorage implements Parcelable {
         this.setDateLiquidation(dateLiquidation);
         this.setTextLiquidation(textLiquidation);
         this.setAddressWarning(addressWarning);
-
-        this.setDateLastCourtAction("1993-08-01");
-        this.setNumberLastCourtAction("А77-12345/2100");
     }
 
     protected FirmStorage(Parcel in) {
@@ -64,8 +54,6 @@ public class FirmStorage implements Parcelable {
         dateLiquidation = in.readString();
         textLiquidation = in.readString();
         addressWarning = in.readInt()==1;  // cast Integer to Boolean
-        dateLastCourtAction = in.readString();
-        numberLastCourtAction = in.readString();
     }
 
     public static final Creator<FirmStorage> CREATOR = new Creator<FirmStorage>() {
@@ -132,21 +120,6 @@ public class FirmStorage implements Parcelable {
 
     public Boolean getAddressWarning(){ return addressWarning; }
 
-    public String getDateLastCourtAction() {
-        return dateLastCourtAction;
-    }
-
-    public void setDateLastCourtAction(@Nullable String dateLastCourtAction) {
-        this.dateLastCourtAction = (dateLastCourtAction==null) ? "" : dateLastCourtAction;
-    }
-
-    public String getNumberLastCourtAction() {
-        return numberLastCourtAction;
-    }
-
-    public void setNumberLastCourtAction(@Nullable String numberLastCourtAction) {
-        this.numberLastCourtAction = (numberLastCourtAction==null) ? "" : numberLastCourtAction;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -178,7 +151,5 @@ public class FirmStorage implements Parcelable {
         parcel.writeString(dateLiquidation);
         parcel.writeString(textLiquidation);
         parcel.writeInt(addressWarning ? 1 : 0); // cast Boolean to Integer
-        parcel.writeString(dateLastCourtAction);
-        parcel.writeString(numberLastCourtAction);
     }
 }

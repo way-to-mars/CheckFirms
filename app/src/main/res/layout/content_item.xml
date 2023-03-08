@@ -41,7 +41,8 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="horizontal"
-      android:layout_marginBottom="@dimen/item_marginbottom1">
+      android:layout_marginBottom="@dimen/item_marginbottom1"
+      tools:ignore="UseCompoundDrawables">
       <ImageView
         android:layout_width="@dimen/item_alertsize"
         android:layout_height="@dimen/item_alertsize"
@@ -63,7 +64,8 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="horizontal"
-      android:layout_marginBottom="@dimen/item_marginbottom1">
+      android:layout_marginBottom="@dimen/item_marginbottom1"
+      tools:ignore="UseCompoundDrawables">
       <ImageView
         android:layout_width="@dimen/item_alertsize"
         android:layout_height="@dimen/item_alertsize"
@@ -110,36 +112,6 @@
       android:maxLines="1"
       android:ellipsize="end"
       tools:text="Внесена запись об очень важном изменении. Просьба обратить внимание на сонечный свет."/>
-    <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal"
-      android:layout_marginBottom="0dp">
-      <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
-        android:textSize="@dimen/item_fontsize_header3"
-        android:text="@string/item_last_court_record"/>
-      <TextView
-        android:id="@+id/item_date_court"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/item_fontsize_header3"
-        android:textStyle="bold"
-        tools:text="01-01-2020"
-        android:gravity="bottom" />
-    </LinearLayout>
-    <TextView
-      android:id="@+id/item_text_court"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:textSize="@dimen/item_fontsize_text"
-      android:textStyle="italic"
-      android:ellipsize="end"
-      android:maxLines="1"
-      tools:text="И как говорил классик: посудимся. "/>
-
   </LinearLayout>
 
 </androidx.cardview.widget.CardView>

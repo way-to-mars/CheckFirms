@@ -1,6 +1,7 @@
 package com.way2mars.ij.java.checkfirms.screen;
 
 import android.app.Activity;
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import androidx.recyclerview.widget.SortedList;
-import com.google.android.material.snackbar.Snackbar;
+import com.way2mars.ij.java.checkfirms.App;
 import com.way2mars.ij.java.checkfirms.R;
-import com.way2mars.ij.java.checkfirms.model.FirmData;
 import com.way2mars.ij.java.checkfirms.model.FirmStorage;
 import org.jetbrains.annotations.NotNull;
 
@@ -21,7 +21,7 @@ import java.util.List;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.FirmViewHolder> {
 
-    private SortedList<FirmStorage> sortedList;
+    final private SortedList<FirmStorage> sortedList;
 
     static class FirmViewHolder extends RecyclerView.ViewHolder {
 
@@ -31,8 +31,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.FirmViewHolder> {
         View linearAddress;
         TextView textDateEgrul;
         TextView textEgrul;
-        TextView textDateCourt;
-        TextView textCourt;
+
 
         FirmStorage firmStorage;
 
@@ -45,23 +44,17 @@ public class Adapter extends RecyclerView.Adapter<Adapter.FirmViewHolder> {
             linearAddress = itemView.findViewById(R.id.item_address_warning);
             textDateEgrul = itemView.findViewById(R.id.item_date_egrul);
             textEgrul = itemView.findViewById(R.id.item_text_egrul);
-            textDateCourt = itemView.findViewById(R.id.item_date_court);
-            textCourt = itemView.findViewById(R.id.item_text_court);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Snackbar.make(itemView,"Нажатие на итем", Snackbar.LENGTH_LONG);
-                    AddFirmActivity.start((Activity) itemView.getContext(), firmStorage);
-                }
-            });
+            itemView.setOnClickListener(v -> AddFirmActivity.start((Activity) itemView.getContext(), firmStorage));
         }
 
         public void bind(FirmStorage firm)
         {
             this.firmStorage = firm;
             textName.setText(firm.shortName);
-            textInn.setText("ИНН " + firm.inn);
+            Resources res = App.getInstance().getResources();
+            textInn.setText(res.getString(R.string.item_inn_placeholder,firm.inn));
+            //textInn.setText("ИНН ".concat(firm.inn));
 
             if (firm.addressWarning)  // недостоверность адреса
                 linearAddress.setVisibility(View.VISIBLE);
@@ -75,8 +68,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.FirmViewHolder> {
             textDateEgrul.setText(firm.dateLastRecord);
             textEgrul.setText(firm.textLastRecord);
 
-            textDateCourt.setText(firm.dateLastCourtAction);
-            textCourt.setText(firm.numberLastCourtAction);
         }
     }
 
@@ -84,8 +75,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.FirmViewHolder> {
         sortedList = new SortedList<>(FirmStorage.class, new SortedList.Callback<FirmStorage>() {
             @Override
             public int compare(FirmStorage o1, FirmStorage o2) {
-                return -max(o1.dateLastRecord,o1.dateLastCourtAction).
-                        compareTo(max(o2.dateLastRecord, o2.dateLastCourtAction));
+//                return -max(o1.dateLastRecord,o1.dateLastCourtAction).
+//                        compareTo(max(o2.dateLastRecord, o2.dateLastCourtAction));
+                return o1.dateLastRecord.compareTo(o2.dateLastRecord);
             }
 
             @Override
